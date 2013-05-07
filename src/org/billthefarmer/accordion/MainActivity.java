@@ -1,81 +1,71 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Accordion - An Android Accordion written in Java.
+//
+//  Copyright (C) 2013	Bill Farmer
+//
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Bill Farmer	 william j farmer [at] yahoo [dot] co [dot] uk.
+//
+///////////////////////////////////////////////////////////////////////////////
+
 package org.billthefarmer.accordion;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity
-    implements OnTouchListener
+    implements OnTouchListener, OnCheckedChangeListener
 {
-    // List of midi instruments
-
-    static final String instruments[] =
-    {" Acoustic Grand Piano", " Bright Acoustic Piano",
-     " Electric Grand Piano", " Honky-tonk Piano",
-     " Electric Piano 1", " Electric Piano 2", " Harpsichord",
-     " Clavi", " Celesta", " Glockenspiel", " Music Box",
-     " Vibraphone", " Marimba", " Xylophone", " Tubular Bells",
-     " Dulcimer", " Drawbar Organ", " Percussive Organ",
-     " Rock Organ", " Church Organ", " Reed Organ",
-     " Accordion", " Harmonica", " Tango Accordion",
-     " Acoustic Guitar (nylon)", " Acoustic Guitar (steel)",
-     " Electric Guitar (jazz)", " Electric Guitar (clean)",
-     " Electric Guitar (muted)", " Overdriven Guitar",
-     " Distortion Guitar", " Guitar harmonics",
-     " Acoustic Bass", " Electric Bass (finger)",
-     " Electric Bass (pick)", " Fretless Bass",
-     " Slap Bass 1", " Slap Bass 2", " Synth Bass 1",
-     " Synth Bass 2", " Violin", " Viola", " Cello",
-     " Contrabass", " Tremolo Strings", " Pizzicato Strings",
-     " Orchestral Harp", " Timpani", " String Ensemble 1",
-     " String Ensemble 2", " SynthStrings 1", " SynthStrings 2",
-     " Choir Aahs", " Voice Oohs", " Synth Voice",
-     " Orchestra Hit", " Trumpet", " Trombone", " Tuba",
-     " Muted Trumpet", " French Horn", " Brass Section",
-     " SynthBrass 1", " SynthBrass 2", " Soprano Sax",
-     " Alto Sax", " Tenor Sax", " Baritone Sax", " Oboe",
-     " English Horn", " Bassoon", " Clarinet", " Piccolo",
-     " Flute", " Recorder", " Pan Flute", " Blown Bottle",
-     " Shakuhachi", " Whistle", " Ocarina", " Lead 1 (square)",
-     " Lead 2 (sawtooth)", " Lead 3 (calliope)", " Lead 4 (chiff)",
-     " Lead 5 (charang)", " Lead 6 (voice)", " Lead 7 (fifths)",
-     " Lead 8 (bass + lead)", " Pad 1 (new age)", " Pad 2 (warm)",
-     " Pad 3 (polysynth)", " Pad 4 (choir)", " Pad 5 (bowed)",
-     " Pad 6 (metallic)", " Pad 7 (halo)", " Pad 8 (sweep)",
-     " FX 1 (rain)", " FX 2 (soundtrack)", " FX 3 (crystal)",
-     " FX 4 (atmosphere)", " FX 5 (brightness)", " FX 6 (goblins)",
-     " FX 7 (echoes)", " FX 8 (sci-fi)", " Sitar", " Banjo",
-     " Shamisen", " Koto", " Kalimba", " Bag pipe", " Fiddle",
-     " Shanai", " Tinkle Bell", " Agogo", " Steel Drums",
-     " Woodblock", " Taiko Drum", " Melodic Tom", " Synth Drum",
-     " Reverse Cymbal", " Guitar Fret Noise", " Breath Noise",
-     " Seashore", " Bird Tweet", " Telephone Ring",
-     " Helicopter", " Applause", " Gunshot"};
 
     // Button ids
 
     static final int buttons[][] =
-    {{R.id.button_1, R.id.button_2,
-      R.id.button_3, R.id.button_4,
-      R.id.button_5, R.id.button_6,
-      R.id.button_7, R.id.button_8,
-      R.id.button_9, R.id.button_10,
-      0},
+    {{R.id.button_22, R.id.button_23,
+      R.id.button_24, R.id.button_25,
+      R.id.button_26, R.id.button_27,
+      R.id.button_28, R.id.button_29,
+      R.id.button_30, R.id.button_31},
      {R.id.button_11, R.id.button_12,
       R.id.button_13, R.id.button_14,
       R.id.button_15, R.id.button_16,
       R.id.button_17, R.id.button_18,
       R.id.button_19, R.id.button_20,
       R.id.button_21},
-     {R.id.button_22, R.id.button_23,
-      R.id.button_24, R.id.button_25,
-      R.id.button_26, R.id.button_27,
-      R.id.button_28, R.id.button_29,
-      R.id.button_30, R.id.button_31,
-      0}};
+     {R.id.button_1, R.id.button_2,
+      R.id.button_3, R.id.button_4,
+      R.id.button_5, R.id.button_6,
+      R.id.button_7, R.id.button_8,
+      R.id.button_9, R.id.button_10}};
 
     // Bass button ids
 
@@ -102,8 +92,17 @@ public class MainActivity extends Activity
      { 1,  0, -1},  // C System
      { 2,  0, -2}}; // B System
 
-    //      Eb  Bb   F   C   G   D   A
-    //     { 3, -2,  5,  0, -5,  2, -3};
+    //	    Eb	Bb   F	 C   G	 D   A
+    //	   { 3, -2,  5,	 0, -5,	 2, -3};
+
+    // Types
+
+    static final int DIATONIC = 0;
+    static final int CHROMATIC = 1;
+
+    static final int types[] =
+    {DIATONIC, DIATONIC, DIATONIC, DIATONIC,
+     DIATONIC, CHROMATIC, CHROMATIC};
 
     // Midi notes for C Diatonic, G Chromatic
 
@@ -203,47 +202,47 @@ public class MainActivity extends Activity
 
     static final String notetops[][][] =
     {
-	// F/Bb/Eb
+    	// F/Bb/Eb
 
-	{{"G", "Bb", "Eb", "G", "Bb", "Eb", "G", "Bb", "Eb", "G"},
-	 {"D", "F", "Bb", "D", "F", "Bb", "D", "F", "Bb", "D", "F"},
-	 {"C", "F", "A", "C", "F", "A", "C", "F", "A", "C"}},
+    	{{"G", "Bb", "Eb", "G", "Bb", "Eb", "G", "Bb", "Eb", "G"},
+    	 {"D", "F", "Bb", "D", "F", "Bb", "D", "F", "Bb", "D", "F"},
+    	 {"C", "F", "A", "C", "F", "A", "C", "F", "A", "C"}},
 
-	// G/C/F
+    	// G/C/F
 
-	{{"A", "C", "F", "A", "C", "F", "A", "C", "F", "A"},
-	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
-	 {"D", "G", "B", "D", "G", "B", "D", "G", "B", "D"}},
+    	{{"A", "C", "F", "A", "C", "F", "A", "C", "F", "A"},
+    	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
+    	 {"D", "G", "B", "D", "G", "B", "D", "G", "B", "D"}},
 
-	// A/D/G
+    	// A/D/G
 
-	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
-	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
-	 {"E", "A", "C#", "E", "A", "C#", "E", "A", "C#", "E"}},
+    	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
+    	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
+    	 {"E", "A", "C#", "E", "A", "C#", "E", "A", "C#", "E"}},
 
-	// C#/D/G
+    	// C#/D/G
 
-	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
-	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
-	 {"G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F", "G#"}},
+    	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
+    	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
+    	 {"G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F", "G#"}},
 
-	// B/C/C#
+    	// B/C/C#
 
-	{{"F", "G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F"},
-	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
-	 {"F#", "B", "D#", "F#", "B", "D#", "F#", "B", "D#", "F#"}},
+    	{{"F", "G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F"},
+    	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
+    	 {"F#", "B", "D#", "F#", "B", "D#", "F#", "B", "D#", "F#"}},
 
-	// C System
+    	// C System
 
-	{{"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"},
-	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
-	 {"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"}},
+    	{{"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"},
+    	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
+    	 {"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"}},
 
-	// B System
+    	// B System
 
-	{{"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"},
-	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
-	 {"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"}}
+    	{{"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"},
+    	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
+    	 {"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"}}
     };
 
     // Hilites
@@ -276,12 +275,26 @@ public class MainActivity extends Activity
 	 {false, true, true, false, false, true, true, false, false, true, true},
 	 {false, false, true, true, false, false, true, true, false, false}},
 
-	// b system
+	// B system
 
 	{{false, false, true, true, false, false, true, true, false, false},
 	 {false, true, true, false, false, true, true, false, false, true, true},
 	 {true, false, false, false, true, false, false, false, true, false}}
     };
+
+    // Midi codes
+
+    static final int noteOff = 0x80;
+    static final int noteOn  = 0x90;
+    static final int change  = 0xc0;
+
+    // Button states
+
+    // Preferences
+
+    final static String PREF_INSTRUMENT = "pref_instrument";
+    final static String PREF_REVERSE = "pref_reverse";
+    final static String PREF_KEY = "pref_key";
 
     // Button states
 
@@ -297,13 +310,27 @@ public class MainActivity extends Activity
     {false, false, false, false, false, false,
      false, false, false, false, false, false};
 
-    boolean bellowsState = false;
+    boolean bellows = false;
+    boolean reverse = false;
+
+    // Status
+
+    int instrument;
+    int volume;
+    int type;
+    int key;
+
+    TextView textView;
+    Switch revView;
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_main);
+
+	getPreferences();
 	setListener();
     }
 
@@ -314,6 +341,54 @@ public class MainActivity extends Activity
 	// is present.
 	getMenuInflater().inflate(R.menu.main, menu);
 	return true;
+    }
+
+    // On Resume
+
+    @Override
+    protected void onResume()
+    {
+	super.onResume();
+
+	// Get preferences
+
+	getPreferences();
+
+	if (textView != null)
+	    textView.setText("");
+    }
+
+    @Override
+    protected void onPause()
+    {
+	super.onPause();
+
+	// Save preferences
+
+	savePreferences();
+    }
+
+    // On options item
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+	// Get id
+
+	int id = item.getItemId();
+	switch (id)
+	{
+	    // Settings
+
+	case R.id.settings:
+	    Intent intent = new Intent(this, SettingsActivity.class);
+	    startActivity(intent);
+
+	    return true;
+
+	default:
+	    return false;
+	}
     }
 
     @Override
@@ -328,159 +403,404 @@ public class MainActivity extends Activity
 	    switch (id)
 	    {
 	    case R.id.bellows:
-		break;
-	    case R.id.button_1:
-		break;
+		return onBellowsDown(v, event);
+
+	    default:
+		return onButtonDown(v, event);
 	    }
-	    break;
 
 	case MotionEvent.ACTION_UP:
 	    switch (id)
 	    {
 	    case R.id.bellows:
-		break;
-	    case R.id.button_1:
-		break;
+		return onBellowsUp(v, event);
+
+	    default:
+		return onButtonUp(v, event);
+	    }
+
+	default:
+	    return false;
+	}
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton button,
+				 boolean isChecked)
+    {
+	int id = button.getId();
+
+	switch (id)
+	{
+	case R.id.reverse:
+	    reverse = isChecked;
+
+	    if (reverse)
+		showToast(R.string.buttons_reversed);
+
+	    else
+		showToast(R.string.buttons_normal);
+	    break;
+
+	default:
+	    return;
+	}
+    }
+
+    // Save preferences
+
+    void savePreferences()
+    {
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	Editor editor = preferences.edit();
+
+	editor.putBoolean(PREF_REVERSE, reverse);
+
+	editor.commit();
+    }
+
+    // Get preferences
+
+    void getPreferences()
+    {
+	// Load preferences
+
+	PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// Set preferences
+
+	instrument =
+	    Integer.parseInt(preferences.getString(PREF_INSTRUMENT, "21"));
+	key =
+	    Integer.parseInt(preferences.getString(PREF_KEY, "2"));
+
+	reverse = preferences.getBoolean(PREF_REVERSE, false);
+
+	type = types[key];
+
+	if (revView != null)
+		revView.setChecked(reverse);
+    }
+
+    private boolean onBellowsDown(View v, MotionEvent event)
+    {
+	if (!bellows)
+	{
+	    bellows = true;
+
+	    // Change all notes
+
+	    for (int i = 0; i < buttons.length; i++)
+	    {
+		for (int j = 0; j < buttons[i].length; j++)
+		{
+		    if (buttonStates[i][j])
+		    {
+			int k = 0;
+
+			switch (i)
+			{
+			case 0:
+			    k = (reverse)? buttons[i].length - j - 2: j;
+			    break;
+
+			case 1:
+			    k = (reverse)? buttons[i].length - j - 1: j;
+			    break;
+
+			case 2:
+			    k = (reverse)? buttons[i].length - j - 1: j + 1;
+			    break;
+			}
+
+			int note = notes[type][k][!bellows? 1: 0] +
+			    keyvals[key][i];
+
+			// Stop note
+
+			midiMessage(noteOff + i, note, volume);
+
+			note = notes[type][k][bellows? 1: 0] +
+			    keyvals[key][i];
+
+			// Play note
+
+			midiMessage(noteOn + i, note, volume);
+		    }
+		}
 	    }
 	}
+
 	return false;
+    }
+
+    private boolean onBellowsUp(View v, MotionEvent event)
+    {
+	if (bellows)
+	{
+	    bellows = false;
+
+	    // Change all notes
+
+	    for (int i = 0; i < buttons.length; i++)
+	    {
+		for (int j = 0; j < buttons[i].length; j++)
+		{
+		    if (buttonStates[i][j])
+		    {
+			int k = 0;
+
+			switch (i)
+			{
+			case 0:
+			    k = (reverse)? buttons[i].length - j - 2: j;
+			    break;
+
+			case 1:
+			    k = (reverse)? buttons[i].length - j - 1: j;
+			    break;
+
+			case 2:
+			    k = (reverse)? buttons[i].length - j - 1: j + 1;
+			    break;
+			}
+
+			int note = notes[type][k][!bellows? 1: 0] +
+			    keyvals[key][i];
+
+			// Stop note
+
+			midiMessage(noteOff + i, note, volume);
+
+			note = notes[type][k][bellows? 1: 0] +
+			    keyvals[key][i];
+
+			// Play note
+
+			midiMessage(noteOn + i, note, volume);
+		    }
+		}
+	    }
+	}
+
+	return false;
+    }
+
+    private boolean onButtonDown(View v, MotionEvent event)
+    {
+	int id = v.getId();
+
+	// Check melody buttons
+
+	for (int i = 0; i < buttons.length; i++)
+	{
+	    for (int j = 0; j < buttons[i].length; j++)
+	    {
+		if (id == buttons[i][j] && !buttonStates[i][j])
+		{
+		    buttonStates[i][j] = true;
+
+		    // Play note
+
+		    int k = 0;
+
+		    switch (i)
+		    {
+		    case 0:
+			k = (reverse)? buttons[i].length - j - 2: j;
+			break;
+
+		    case 1:
+			k = (reverse)? buttons[i].length - j - 1: j;
+			break;
+
+		    case 2:
+			k = (reverse)? buttons[i].length - j - 1: j + 1;
+			break;
+		    }
+
+		    int note =  notes[type][k][bellows? 1: 0] + keyvals[key][i];
+		    midiMessage(noteOn + i, note, volume);
+		    message(key, i, j);
+		    return false;
+		}
+	    }
+	}
+
+	// Check bass buttons
+
+	for (int i = 0; i < basses.length; i++)
+	{
+	    if (id == basses[i] && !bassStates[i])
+	    {
+		bassStates[i] = true;
+
+		// Play chord
+
+		int k = (reverse)? basses.length - i - 1: i;
+
+		int note = chords[key][k][bellows? 1: 0][0];
+		midiMessage(noteOn + 3, note, volume);
+
+		note = chords[key][k][bellows? 1: 0][1];
+		midiMessage(noteOn + 3, note, volume);
+
+		return false;
+	    }
+	}
+
+	return false;
+    }
+
+    private boolean onButtonUp(View v, MotionEvent event)
+    {
+	int id = v.getId();
+
+	for (int i = 0; i < buttons.length; i++)
+	{
+	    for (int j = 0; j < buttons[i].length; j++)
+	    {
+		if (id == buttons[i][j] && buttonStates[i][j])
+		{
+		    buttonStates[i][j] = false;
+
+		    // Stop note
+
+		    int k = 0;
+
+		    switch (i)
+		    {
+		    case 0:
+			k = (reverse)? buttons[i].length - j - 2: j;
+			break;
+
+		    case 1:
+			k = (reverse)? buttons[i].length - j - 1: j;
+			break;
+
+		    case 2:
+			k = (reverse)? buttons[i].length - j - 1: j + 1;
+			break;
+		    }
+
+		    int note =  notes[type][k][bellows? 1: 0] + keyvals[key][i];
+		    midiMessage(noteOff + i, note, 0);
+
+		    return false;
+		}
+	    }
+	}
+
+	// Check bass buttons
+
+	for (int i = 0; i < basses.length; i++)
+	{
+	    if (id == basses[i] && bassStates[i])
+	    {
+		bassStates[i] = false;
+
+		// Stop chord
+
+		int k = (reverse)? basses.length - i - 1: i;
+
+		int note = chords[key][k][bellows? 1: 0][0];
+		midiMessage(noteOff + 3, note, volume);
+
+		note = chords[key][k][bellows? 1: 0][1];
+		midiMessage(noteOff + 3, note, volume);
+
+		return false;
+	    }
+	}
+
+	return false;
+    }
+
+    // Midi message
+
+    @SuppressLint("DefaultLocale")
+	void midiMessage(int s, int n, int v)
+    {
+	// byte message[];
+
+	// message[0] = (byte)s;
+	// message[1] = (byte)n;
+	// message[2] = (byte)v;
+
+	String msg = String.format("Midi %x %d %d\n", s, n, v);
+
+	// if (textView != null)
+	//     textView.append(msg);
+
+	// send(message);
+    }
+
+    private void message(int k, int r, int b)
+    {
+	String note = notetops[k][r][b];
+
+//	if (textView != null)
+//	    textView.append(note + " down\n");
+    }
+
+    // Show toast.
+
+    void showToast(int key)
+    {
+	Resources resources = getResources();
+	String text = resources.getString(key);
+
+	showToast(text);
+    }
+
+    void showToast(String text)
+    {
+	// Cancel the last one
+
+	if (toast != null)
+	    toast.cancel();
+
+	// Make a new one
+
+	toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+	toast.setGravity(Gravity.CENTER, 0, 0);
+	toast.show();
     }
 
     private void setListener()
     {
 	View v;
 
+	for (int i = 0; i < buttons.length; i++)
+	{
+	    for (int j = 0; j < buttons[i].length; j++)
+	    {
+		v = findViewById(buttons[i][j]);
+		if (v != null)
+		    v.setOnTouchListener(this);
+	    }
+	}
+
+	for (int i = 0; i < basses.length; i++)
+	{
+	    v = findViewById(basses[i]);
+	    if (v != null)
+		v.setOnTouchListener(this);
+	}
+
 	v = findViewById(R.id.bellows);
-	v.setOnTouchListener(this);
+	if (v != null)
+	    v.setOnTouchListener(this);
 
-	v = findViewById(R.id.bass_1);
-	v.setOnTouchListener(this);
+	revView = (Switch)findViewById(R.id.reverse);
+	if (revView != null)
+	    revView.setOnCheckedChangeListener(this);
 
-	v = findViewById(R.id.bass_2);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_3);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_4);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_5);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_6);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_7);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_8);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_9);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_10);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_11);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.bass_12);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_1);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_2);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_3);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_4);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_5);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_6);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_7);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_8);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_9);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_10);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_11);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_12);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_13);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_14);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_15);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_16);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_17);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_18);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_19);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_20);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_21);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_22);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_23);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_24);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_25);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_26);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_27);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_28);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_29);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_30);
-	v.setOnTouchListener(this);
-
-	v = findViewById(R.id.button_31);
-	v.setOnTouchListener(this);
-
-    }
+	textView = (TextView) findViewById(R.id.text);
+	}
 }

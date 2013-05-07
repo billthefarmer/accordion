@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Accordion</string>
-    <string name="action_settings">Settings</string>
+  <string name="app_name">Accordion</string>
+  <string name="settings">Settings</string>
+
+  <string name="buttons_normal">Buttons normal</string>
+  <string name="buttons_reversed">Buttons reversed</string>
+
+  <string name="copyright">Copyright \u00A9 2013 Bill Farmer</string>
+  <string name="licence">Licence: GNU GPLv3</string>
+  
+  <string name="pref_instrument">Instrument</string>
+  <string name="pref_instrument_summ">%s</string>
+
+  <string name="pref_key">Key</string>
+  <string name="pref_key_summ">%s</string>
+
+  <string name="pref_reverse">Reverse</string>
+  <string name="pref_reverse_summ">Reverse buttons</string>
+
+  <string name="pref_about">About</string>
+  <string name="pref_about_summ">Accordion version %s</string>
 
 </resources>
