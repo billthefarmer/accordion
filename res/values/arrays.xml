@@ -291,4 +291,22 @@
 
   </string-array>
 
+  <string-array name="pref_fascia_entries">
+
+    <item>Onyx</item>
+    <item>Cherry</item>
+    <item>Rosewood</item>
+    <item>Olivewood</item>
+
+  </string-array>
+
+  <string-array name="pref_fascia_entry_values">
+
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+
+  </string-array>
+
 </resources>

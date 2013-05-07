@@ -30,6 +30,16 @@
       android:summary="@string/pref_reverse_summ"
       android:defaultValue="false" />
 
+  <ListPreference
+      android:key="pref_fascia"
+      android:icon="@drawable/ic_pref_fascia"
+      android:title="@string/pref_fascia"
+      android:summary="@string/pref_fascia_summ"
+      android:entries="@array/pref_fascia_entries"
+      android:entryValues="@array/pref_fascia_entry_values"
+      android:dialogIcon="@drawable/ic_pref_fascia"
+      android:defaultValue="@integer/def_fascia" />
+
   <org.billthefarmer.accordion.AboutPreference
       android:key="pref_about"
       android:icon="@drawable/ic_about"

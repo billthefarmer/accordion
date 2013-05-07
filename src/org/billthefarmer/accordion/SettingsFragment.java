@@ -43,6 +43,7 @@ public class SettingsFragment extends PreferenceFragment
 {
     private static final String KEY_PREF_INSTRUMENT = "pref_instrument";
     private static final String KEY_PREF_KEY = "pref_key";
+    private static final String KEY_PREF_FASCIA = "pref_fascia";
     private static final String KEY_PREF_ABOUT = "pref_about";
 
     @Override
@@ -64,6 +65,9 @@ public class SettingsFragment extends PreferenceFragment
 	preference.setSummary(preference.getEntry());
 
 	preference = (ListPreference)findPreference(KEY_PREF_KEY);
+	preference.setSummary(preference.getEntry());
+
+	preference = (ListPreference)findPreference(KEY_PREF_FASCIA);
 	preference.setSummary(preference.getEntry());
 
 	// Get about summary
@@ -123,7 +127,8 @@ public class SettingsFragment extends PreferenceFragment
     public void onSharedPreferenceChanged(SharedPreferences preferences,
 					  String key)
     {
-	if (key.equals(KEY_PREF_INSTRUMENT) || key.equals(KEY_PREF_KEY))
+	if (key.equals(KEY_PREF_INSTRUMENT) || key.equals(KEY_PREF_KEY) ||
+			key.equals(KEY_PREF_FASCIA))
 	{
 	    ListPreference preference = (ListPreference)findPreference(key);
 

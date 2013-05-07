@@ -46,7 +46,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity
     implements OnTouchListener, OnCheckedChangeListener
 {
-
     // Button ids
 
     static final int buttons[][] =
@@ -77,11 +76,7 @@ public class MainActivity extends Activity
      R.id.bass_9, R.id.bass_10,
      R.id.bass_11, R.id.bass_12};
 
-    // List of keys and offset values
-
-    static final String keys[] =
-    {" F/Bb/Eb", " G/C/F", " A/D/G", " C#/D/G", " B/C/C#",
-     " C System", " B System"};
+    // List of key offset values
 
     static final int keyvals[][] =
     {{ 3, -2, -7},  // F/Bb/Eb
@@ -288,13 +283,18 @@ public class MainActivity extends Activity
     static final int noteOn  = 0x90;
     static final int change  = 0xc0;
 
-    // Button states
-
     // Preferences
 
     final static String PREF_INSTRUMENT = "pref_instrument";
     final static String PREF_REVERSE = "pref_reverse";
+    final static String PREF_FASCIA = "pref_fascia";
     final static String PREF_KEY = "pref_key";
+
+    // Fascias
+
+    final static int fascias[] =
+    {R.drawable.bg_onyx, R.drawable.bg_cherry,
+     R.drawable.bg_rosewood,  R.drawable.bg_olivewood};
 
     // Button states
 
@@ -317,12 +317,15 @@ public class MainActivity extends Activity
 
     int instrument;
     int volume;
+    int fascia;
     int type;
     int key;
 
     TextView textView;
     Switch revView;
     Toast toast;
+
+    // On create
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -334,6 +337,8 @@ public class MainActivity extends Activity
 	setListener();
     }
 
+    // On create option menu
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -343,7 +348,7 @@ public class MainActivity extends Activity
 	return true;
     }
 
-    // On Resume
+    // On resume
 
     @Override
     protected void onResume()
@@ -357,6 +362,8 @@ public class MainActivity extends Activity
 	if (textView != null)
 	    textView.setText("");
     }
+
+    // On pause
 
     @Override
     protected void onPause()
@@ -390,6 +397,8 @@ public class MainActivity extends Activity
 	    return false;
 	}
     }
+
+    // On touch
 
     @Override
     public boolean onTouch(View v, MotionEvent event)
@@ -476,16 +485,25 @@ public class MainActivity extends Activity
 
 	instrument =
 	    Integer.parseInt(preferences.getString(PREF_INSTRUMENT, "21"));
+	fascia =
+	    Integer.parseInt(preferences.getString(PREF_FASCIA, "0"));
 	key =
 	    Integer.parseInt(preferences.getString(PREF_KEY, "2"));
 
-	reverse = preferences.getBoolean(PREF_REVERSE, false);
-
 	type = types[key];
+
+	reverse = preferences.getBoolean(PREF_REVERSE, false);
 
 	if (revView != null)
 		revView.setChecked(reverse);
+
+	View v = findViewById(R.id.fascia);
+
+	if (v != null)
+	    v.setBackgroundResource(fascias[fascia]);
     }
+
+    // On bellows down
 
     private boolean onBellowsDown(View v, MotionEvent event)
     {
@@ -732,7 +750,7 @@ public class MainActivity extends Activity
 	// message[1] = (byte)n;
 	// message[2] = (byte)v;
 
-	String msg = String.format("Midi %x %d %d\n", s, n, v);
+//	String msg = String.format("Midi %x %d %d\n", s, n, v);
 
 	// if (textView != null)
 	//     textView.append(msg);
@@ -742,7 +760,7 @@ public class MainActivity extends Activity
 
     private void message(int k, int r, int b)
     {
-	String note = notetops[k][r][b];
+//	String note = notetops[k][r][b];
 
 //	if (textView != null)
 //	    textView.append(note + " down\n");
