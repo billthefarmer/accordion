@@ -1,3 +1,26 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Accordion - An Android Accordion written in C and Java.
+//
+//  Copyright (C) 2013	Bill Farmer
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Bill Farmer	 william j farmer [at] yahoo [dot] co [dot] uk.
+//
+///////////////////////////////////////////////////////////////////////////////
+
 #include <jni.h>
 #include <assert.h>
 #include <pthread.h>
@@ -13,12 +36,12 @@
 #define NUM_BUFFERS 8
 
 // EAS data
-static EAS_DATA_HANDLE easData;
+static EAS_DATA_HANDLE pEASData;
 const S_EAS_LIB_CONFIG *pLibConfig;
 static void *buffer;
 static EAS_RESULT result;
 static EAS_I32 bufferSize;
-
+static EAS_HANDLE midiHandle;
 static EAS_I32 polyphony;
 
 // engine interfaces
@@ -65,11 +88,28 @@ void setupEAS()
     buffer = malloc((EAS_U32)bufferSize);
     assert(NULL != buffer);
 
-    if ((result = EAS_Init(&easData)) != EAS_SUCCESS)
+    // init library
+    if ((result = EAS_Init(&pEASData)) != EAS_SUCCESS)
     {
         free(buffer);
         return;
     }
+
+    // open midi stream
+    if (result = EAS_OpenMIDIStream(pEASData, &midiHandle, NULL) !=
+	EAS_SUCCESS)
+    {
+	EAS_Shutdown(pEASData);
+	free(buffer);
+    }
+}
+
+// shutdown EAS midi
+void shutdownEAS()
+{
+    EAS_CloseMIDIStream(pEASData, midiHandle);
+    EAS_Shutdown(pEASData);
+    free(buffer);
 }
 
 // this callback handler is called every time a buffer finishes playing
@@ -77,11 +117,15 @@ void playerCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 {
     assert(bq == playerBufferQueue);
     assert(NULL == context);
-    // for streaming playback, replace this test by logic to find and fill the next buffer
-    if (--nextCount > 0 && NULL != nextBuffer && 0 != nextSize) {
+
+    // for streaming playback, replace this test by logic to find and
+    // fill the next buffer
+    if (--nextCount > 0 && NULL != nextBuffer && 0 != nextSize)
+    {
         SLresult result;
         // enqueue another buffer
-        result = (*playerBufferQueue)->Enqueue(playerBufferQueue, nextBuffer, nextSize);
+        result = (*playerBufferQueue)->Enqueue(playerBufferQueue,
+					       nextBuffer, nextSize);
         // the most likely other result is SL_RESULT_BUFFER_INSUFFICIENT,
         // which for this code example would indicate a programming error
         assert(SL_RESULT_SUCCESS == result);
@@ -119,11 +163,10 @@ void createEngine()
     result = (*outputMixObject)->Realize(outputMixObject, SL_BOOLEAN_FALSE);
     assert(SL_RESULT_SUCCESS == result);
 
-    // get the environmental reverb interface
-    // this could fail if the environmental reverb effect is not
-    // available, either because the feature is not present, excessive
-    // CPU load, or the required MODIFY_AUDIO_SETTINGS permission was
-    // not requested and granted
+    // get the environmental reverb interface, this could fail if the
+    // environmental reverb effect is not available, either because
+    // the feature is not present, excessive CPU load, or the required
+    // MODIFY_AUDIO_SETTINGS permission was not requested and granted
     result = (*outputMixObject)->GetInterface(outputMixObject,
 					      SL_IID_ENVIRONMENTALREVERB,
 					      &outputMixEnvironmentalReverb);
@@ -138,7 +181,6 @@ void createEngine()
     // it is optional for this example
 
 }
-
 
 // create buffer queue audio player
 void createBufferQueueAudioPlayer()
@@ -209,7 +251,6 @@ void createBufferQueueAudioPlayer()
     // set the player's state to playing
     result = (*playerPlay)->SetPlayState(playerPlay, SL_PLAYSTATE_PLAYING);
     assert(SL_RESULT_SUCCESS == result);
-
 }
 
 // enable reverb on the buffer queue player
@@ -270,5 +311,4 @@ void shutdown()
 	engineObject = NULL;
 	engineEngine = NULL;
     }
-
 }
