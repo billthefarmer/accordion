@@ -23,9 +23,11 @@
 
 package org.billthefarmer.accordion;
 
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,7 +42,6 @@ import android.view.View.OnTouchListener;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
@@ -321,7 +322,8 @@ public class MainActivity extends Activity
     int type;
     int key;
 
-    TextView textView;
+    Audio audio;
+
     Switch revView;
     Toast toast;
 
@@ -334,6 +336,11 @@ public class MainActivity extends Activity
 	setContentView(R.layout.activity_main);
 
 	getPreferences();
+
+	// Create audio
+
+	audio = new Audio();
+
 	setListener();
     }
 
@@ -359,8 +366,8 @@ public class MainActivity extends Activity
 
 	getPreferences();
 
-	if (textView != null)
-	    textView.setText("");
+	if (audio != null)
+	    audio.start();
     }
 
     // On pause
@@ -373,6 +380,9 @@ public class MainActivity extends Activity
 	// Save preferences
 
 	savePreferences();
+
+	if (audio != null)
+	    audio.stop();
     }
 
     // On options item
@@ -495,7 +505,7 @@ public class MainActivity extends Activity
 	reverse = preferences.getBoolean(PREF_REVERSE, false);
 
 	if (revView != null)
-		revView.setChecked(reverse);
+	    revView.setChecked(reverse);
 
 	View v = findViewById(R.id.fascia);
 
@@ -541,14 +551,14 @@ public class MainActivity extends Activity
 
 			// Stop note
 
-			midiMessage(noteOff + i, note, volume);
+			midiWrite(noteOff + i, note, volume);
 
 			note = notes[type][k][bellows? 1: 0] +
 			    keyvals[key][i];
 
 			// Play note
 
-			midiMessage(noteOn + i, note, volume);
+			midiWrite(noteOn + i, note, volume);
 		    }
 		}
 	    }
@@ -593,14 +603,14 @@ public class MainActivity extends Activity
 
 			// Stop note
 
-			midiMessage(noteOff + i, note, volume);
+			midiWrite(noteOff + i, note, volume);
 
 			note = notes[type][k][bellows? 1: 0] +
 			    keyvals[key][i];
 
 			// Play note
 
-			midiMessage(noteOn + i, note, volume);
+			midiWrite(noteOn + i, note, volume);
 		    }
 		}
 	    }
@@ -643,8 +653,7 @@ public class MainActivity extends Activity
 		    }
 
 		    int note =  notes[type][k][bellows? 1: 0] + keyvals[key][i];
-		    midiMessage(noteOn + i, note, volume);
-		    message(key, i, j);
+		    midiWrite(noteOn + i, note, volume);
 		    return false;
 		}
 	    }
@@ -663,10 +672,10 @@ public class MainActivity extends Activity
 		int k = (reverse)? basses.length - i - 1: i;
 
 		int note = chords[key][k][bellows? 1: 0][0];
-		midiMessage(noteOn + 3, note, volume);
+		midiWrite(noteOn + 3, note, volume);
 
 		note = chords[key][k][bellows? 1: 0][1];
-		midiMessage(noteOn + 3, note, volume);
+		midiWrite(noteOn + 3, note, volume);
 
 		return false;
 	    }
@@ -707,7 +716,7 @@ public class MainActivity extends Activity
 		    }
 
 		    int note =  notes[type][k][bellows? 1: 0] + keyvals[key][i];
-		    midiMessage(noteOff + i, note, 0);
+		    midiWrite(noteOff + i, note, 0);
 
 		    return false;
 		}
@@ -727,43 +736,16 @@ public class MainActivity extends Activity
 		int k = (reverse)? basses.length - i - 1: i;
 
 		int note = chords[key][k][bellows? 1: 0][0];
-		midiMessage(noteOff + 3, note, volume);
+		midiWrite(noteOff + 3, note, volume);
 
 		note = chords[key][k][bellows? 1: 0][1];
-		midiMessage(noteOff + 3, note, volume);
+		midiWrite(noteOff + 3, note, volume);
 
 		return false;
 	    }
 	}
 
 	return false;
-    }
-
-    // Midi message
-
-    @SuppressLint("DefaultLocale")
-	void midiMessage(int s, int n, int v)
-    {
-	// byte message[];
-
-	// message[0] = (byte)s;
-	// message[1] = (byte)n;
-	// message[2] = (byte)v;
-
-//	String msg = String.format("Midi %x %d %d\n", s, n, v);
-
-	// if (textView != null)
-	//     textView.append(msg);
-
-	// send(message);
-    }
-
-    private void message(int k, int r, int b)
-    {
-//	String note = notetops[k][r][b];
-
-//	if (textView != null)
-//	    textView.append(note + " down\n");
     }
 
     // Show toast.
@@ -818,7 +800,107 @@ public class MainActivity extends Activity
 	revView = (Switch)findViewById(R.id.reverse);
 	if (revView != null)
 	    revView.setOnCheckedChangeListener(this);
+   }
 
-	textView = (TextView) findViewById(R.id.text);
+    // Audio
+
+    protected class Audio implements Runnable
+    {
+	static final int SAMPLE_RATE = 22050;
+	static final int BUFFER_SIZE = 4096;
+
+	protected Thread thread;
+	protected AudioTrack audioTrack;
+
+	protected byte byteArray[];
+
+	// Constructor
+
+	protected Audio()
+	{
+	    volume = 127;
 	}
+
+	// Start audio
+
+	protected void start()
+	{
+	    // Start the thread
+
+	    thread = new Thread(this, "Audio");
+	    thread.start();
+	}
+
+	// Run
+
+	@Override
+	public void run()
+	{
+	    processAudio();
+	}
+
+	// Stop
+
+	protected void stop()
+	{
+	    Thread t = thread;
+	    thread = null;
+
+	    // Wait for the thread to exit
+
+	    while (t != null && t.isAlive())
+		Thread.yield();
+	}
+
+	// Process Audio
+
+	protected void processAudio()
+	{
+	    int status = 0;
+	    int size = 0;
+
+	    if ((size = midiInit()) == 0)
+		return;
+
+	    byteArray = new byte[size];
+
+	    audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
+					AudioFormat.CHANNEL_OUT_STEREO,
+					AudioFormat.ENCODING_PCM_8BIT,
+					BUFFER_SIZE, AudioTrack.MODE_STATIC);
+	    if (audioTrack == null)
+		return;
+
+	    while (thread != null)
+	    {
+		if (midiRender(byteArray) == 0)
+		    break;
+
+		status = audioTrack.write(byteArray, 0, byteArray.length);
+
+		if (status < 0)
+		    break;
+	    }
+
+	    if (status > 0)
+	    {
+		if (midiRender(byteArray) > 0)
+		    audioTrack.write(byteArray, 0, byteArray.length);
+	    }
+
+	    midiShutdown();
+	    audioTrack.release();
+	}
+    }
+
+    protected native int     midiInit();
+    protected native int     midiRender(byte a[]);
+    protected native boolean midiWrite(int s, int n, int v);
+    protected native boolean midiShutdown();
+
+    static
+    {
+        System.loadLibrary("midi");
+    }
+
 }
