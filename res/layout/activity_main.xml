@@ -332,7 +332,7 @@
       android:layout_alignTop="@id/row_2"
       android:layout_alignBottom="@id/row_2"
       android:layout_alignParentRight="true"
-	  android:background="@drawable/colour_button" />
+      android:background="@drawable/colour_button" />
   
   <LinearLayout
       android:id="@+id/row_5"
