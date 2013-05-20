@@ -28,6 +28,7 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,6 +43,7 @@ import android.view.View.OnTouchListener;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
@@ -328,6 +330,7 @@ public class MainActivity extends Activity
 
     // Views
 
+    TextView keyView;
     Switch revView;
     Toast toast;
 
@@ -338,6 +341,14 @@ public class MainActivity extends Activity
     {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_main);
+
+	// Add custom view to action bar
+
+	ActionBar actionBar = getActionBar();
+	actionBar.setCustomView(R.layout.text_view);
+	actionBar.setDisplayShowCustomEnabled(true);
+
+	keyView = (TextView)actionBar.getCustomView();
 
 	// Get preferences
 
@@ -522,6 +533,13 @@ public class MainActivity extends Activity
 
 	type = types[key];
 
+	// Set key text
+
+	Resources resources = getResources();
+	String keys[] = resources.getStringArray(R.array.pref_key_entries);
+
+	keyView.setText(keys[key]);
+
 	// Set reverse
 
 	reverse = preferences.getBoolean(PREF_REVERSE, false);
@@ -588,6 +606,28 @@ public class MainActivity extends Activity
 		    }
 		}
 	    }
+
+	    for (int i = 0; i < basses.length; i++)
+	    {
+		if (bassStates[i])
+		{
+		    // Play chord
+
+		    int k = (reverse)? basses.length - i - 1: i;
+
+		    int note =	chords[key][k][!bellows? 1: 0][0];
+		    audio.writeNote(noteOff + 3, note, volume);
+
+		    note =  chords[key][k][!bellows? 1: 0][1];
+		    audio.writeNote(noteOff + 3, note, volume);
+
+		    note =  chords[key][k][bellows? 1: 0][0];
+		    audio.writeNote(noteOn + 3, note, volume);
+
+		    note =  chords[key][k][bellows? 1: 0][1];
+		    audio.writeNote(noteOn + 3, note, volume);
+		}
+	    }
 	}
 
 	return false;
@@ -638,6 +678,28 @@ public class MainActivity extends Activity
 
 			audio.writeNote(noteOn + i, note, volume);
 		    }
+		}
+	    }
+
+	    for (int i = 0; i < basses.length; i++)
+	    {
+		if (bassStates[i])
+		{
+		    // Play chord
+
+		    int k = (reverse)? basses.length - i - 1: i;
+
+		    int note =	chords[key][k][!bellows? 1: 0][0];
+		    audio.writeNote(noteOff + 3, note, volume);
+
+		    note =  chords[key][k][!bellows? 1: 0][1];
+		    audio.writeNote(noteOff + 3, note, volume);
+
+		    note =  chords[key][k][bellows? 1: 0][0];
+		    audio.writeNote(noteOn + 3, note, volume);
+
+		    note =  chords[key][k][bellows? 1: 0][1];
+		    audio.writeNote(noteOn + 3, note, volume);
 		}
 	    }
 	}
