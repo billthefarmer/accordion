@@ -18,11 +18,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    := midi
 LOCAL_SRC_FILES := midi.c
-# for native audio
-LOCAL_LDLIBS    += -lOpenSLES
 # for EAS midi
 LOCAL_LDLIBS    += -lsonivox
-# for logging
-LOCAL_LDLIBS    += -llog
 
 include $(BUILD_SHARED_LIBRARY)

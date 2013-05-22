@@ -22,14 +22,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <jni.h>
-#include <assert.h>
 
 // for EAS midi
 #include "eas.h"
 #include "eas_reverb.h"
 
 // determines how many EAS buffers to fill a host buffer
-#define NUM_BUFFERS 8
+#define NUM_BUFFERS 4
 
 // EAS data
 static EAS_DATA_HANDLE pEASData;
@@ -41,13 +40,13 @@ static EAS_HANDLE midiHandle;
 
 // init EAS midi
 jint
-Java_org_billthefarmer_accordion_MainActivity_midiInit(JNIEnv *env,
-						       jobject clazz)
+Java_org_billthefarmer_accordion_MidiDriver_init(JNIEnv *env,
+						 jobject clazz)
 {
     // get the library configuration
     pLibConfig = EAS_Config();
-    assert(NULL != pLibConfig);
-    assert(LIB_VERSION == pLibConfig->libVersion);
+    if (pLibConfig == NULL || pLibConfig->libVersion != LIB_VERSION)
+	return 0;
 
     // calculate buffer size
     bufferSize = pLibConfig->mixBufferSize * pLibConfig->numChannels *
@@ -76,8 +75,8 @@ Java_org_billthefarmer_accordion_MainActivity_midiInit(JNIEnv *env,
 
 // midi config
 jintArray
-Java_org_billthefarmer_accordion_MainActivity_midiConfig(JNIEnv *env,
-							 jobject clazz)
+Java_org_billthefarmer_accordion_MidiDriver_config(JNIEnv *env,
+						   jobject clazz)
 {
     jboolean isCopy;
 
@@ -97,9 +96,9 @@ Java_org_billthefarmer_accordion_MainActivity_midiConfig(JNIEnv *env,
 
 // midi render
 jint
-Java_org_billthefarmer_accordion_MainActivity_midiRender(JNIEnv *env,
-							 jobject clazz,
-							 jshortArray shortArray)
+Java_org_billthefarmer_accordion_MidiDriver_render(JNIEnv *env,
+						   jobject clazz,
+						   jshortArray shortArray)
 {
     jboolean isCopy;
     EAS_I32 numGenerated;
@@ -135,9 +134,9 @@ Java_org_billthefarmer_accordion_MainActivity_midiRender(JNIEnv *env,
 
 // midi write
 jboolean
-Java_org_billthefarmer_accordion_MainActivity_midiWrite(JNIEnv *env,
-							jobject clazz,
-							jbyteArray byteArray)
+Java_org_billthefarmer_accordion_MidiDriver_write(JNIEnv *env,
+						  jobject clazz,
+						  jbyteArray byteArray)
 {
     jboolean isCopy;
     jint length;
@@ -158,8 +157,8 @@ Java_org_billthefarmer_accordion_MainActivity_midiWrite(JNIEnv *env,
 
 // shutdown EAS midi
 jboolean
-Java_org_billthefarmer_accordion_MainActivity_midiShutdown(JNIEnv *env,
-							   jobject clazz)
+Java_org_billthefarmer_accordion_MidiDriver_shutdown(JNIEnv *env,
+						     jobject clazz)
 {
 
     EAS_CloseMIDIStream(pEASData, midiHandle);

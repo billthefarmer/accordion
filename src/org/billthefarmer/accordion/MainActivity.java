@@ -23,9 +23,8 @@
 
 package org.billthefarmer.accordion;
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
+import org.billthefarmer.accordion.MidiDriver.OnMidiStartListener;
+
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.ActionBar;
@@ -47,7 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
-    implements OnTouchListener, OnCheckedChangeListener
+    implements OnTouchListener, OnCheckedChangeListener, OnMidiStartListener
 {
     // Button ids
 
@@ -324,9 +323,9 @@ public class MainActivity extends Activity
     int type;
     int key;
 
-    // Audio
+    // MidiDriver
 
-    Audio audio;
+    MidiDriver midi;
 
     // Views
 
@@ -354,11 +353,16 @@ public class MainActivity extends Activity
 
 	getPreferences();
 
-	// Create audio
+	// Create midi
 
-	audio = new Audio();
+	midi = new MidiDriver();
 
 	setListener();
+
+	// Set volume, let the user adjust the volume with the
+	// android volume buttons
+
+	volume = 127;
     }
 
     // On create option menu
@@ -383,10 +387,10 @@ public class MainActivity extends Activity
 
 	getPreferences();
 
-	// Start audio
+	// Start midi
 
-	if (audio != null)
-	    audio.start();
+	if (midi != null)
+	    midi.start();
     }
 
     // On pause
@@ -400,10 +404,10 @@ public class MainActivity extends Activity
 
 	savePreferences();
 
-	// Stop audio
+	// Stop midi
 
-	if (audio != null)
-	    audio.stop();
+	if (midi != null)
+	    midi.stop();
     }
 
     // On options item
@@ -493,6 +497,15 @@ public class MainActivity extends Activity
 	default:
 	    return;
 	}
+    }
+
+    @Override
+    public void onMidiStart()
+    {
+	// Set instrument
+
+	for (int i = 0; i <= buttons.length; i++)
+	    midi.writeChange(change + i, instrument);
     }
 
     // Save preferences
@@ -595,14 +608,14 @@ public class MainActivity extends Activity
 
 			// Stop note
 
-			audio.writeNote(noteOff + i, note, volume);
+			midi.writeNote(noteOff + i, note, volume);
 
 			note = notes[type][k][bellows? 1: 0] +
 			    keyvals[key][i];
 
 			// Play note
 
-			audio.writeNote(noteOn + i, note, volume);
+			midi.writeNote(noteOn + i, note, volume);
 		    }
 		}
 	    }
@@ -616,16 +629,16 @@ public class MainActivity extends Activity
 		    int k = (reverse)? basses.length - i - 1: i;
 
 		    int note =	chords[key][k][!bellows? 1: 0][0];
-		    audio.writeNote(noteOff + 3, note, volume);
+		    midi.writeNote(noteOff + 3, note, volume);
 
 		    note =  chords[key][k][!bellows? 1: 0][1];
-		    audio.writeNote(noteOff + 3, note, volume);
+		    midi.writeNote(noteOff + 3, note, volume);
 
 		    note =  chords[key][k][bellows? 1: 0][0];
-		    audio.writeNote(noteOn + 3, note, volume);
+		    midi.writeNote(noteOn + 3, note, volume);
 
 		    note =  chords[key][k][bellows? 1: 0][1];
-		    audio.writeNote(noteOn + 3, note, volume);
+		    midi.writeNote(noteOn + 3, note, volume);
 		}
 	    }
 	}
@@ -669,14 +682,14 @@ public class MainActivity extends Activity
 
 			// Stop note
 
-			audio.writeNote(noteOff + i, note, volume);
+			midi.writeNote(noteOff + i, note, volume);
 
 			note = notes[type][k][bellows? 1: 0] +
 			    keyvals[key][i];
 
 			// Play note
 
-			audio.writeNote(noteOn + i, note, volume);
+			midi.writeNote(noteOn + i, note, volume);
 		    }
 		}
 	    }
@@ -690,16 +703,16 @@ public class MainActivity extends Activity
 		    int k = (reverse)? basses.length - i - 1: i;
 
 		    int note =	chords[key][k][!bellows? 1: 0][0];
-		    audio.writeNote(noteOff + 3, note, volume);
+		    midi.writeNote(noteOff + 3, note, volume);
 
 		    note =  chords[key][k][!bellows? 1: 0][1];
-		    audio.writeNote(noteOff + 3, note, volume);
+		    midi.writeNote(noteOff + 3, note, volume);
 
 		    note =  chords[key][k][bellows? 1: 0][0];
-		    audio.writeNote(noteOn + 3, note, volume);
+		    midi.writeNote(noteOn + 3, note, volume);
 
 		    note =  chords[key][k][bellows? 1: 0][1];
-		    audio.writeNote(noteOn + 3, note, volume);
+		    midi.writeNote(noteOn + 3, note, volume);
 		}
 	    }
 	}
@@ -741,7 +754,7 @@ public class MainActivity extends Activity
 		    }
 
 		    int note =	notes[type][k][bellows? 1: 0] + keyvals[key][i];
-		    audio.writeNote(noteOn + i, note, volume);
+		    midi.writeNote(noteOn + i, note, volume);
 		    return false;
 		}
 	    }
@@ -760,10 +773,10 @@ public class MainActivity extends Activity
 		int k = (reverse)? basses.length - i - 1: i;
 
 		int note = chords[key][k][bellows? 1: 0][0];
-		audio.writeNote(noteOn + 3, note, volume);
+		midi.writeNote(noteOn + 3, note, volume);
 
 		note = chords[key][k][bellows? 1: 0][1];
-		audio.writeNote(noteOn + 3, note, volume);
+		midi.writeNote(noteOn + 3, note, volume);
 
 		return false;
 	    }
@@ -804,7 +817,7 @@ public class MainActivity extends Activity
 		    }
 
 		    int note =	notes[type][k][bellows? 1: 0] + keyvals[key][i];
-		    audio.writeNote(noteOff + i, note, 0);
+		    midi.writeNote(noteOff + i, note, 0);
 
 		    return false;
 		}
@@ -824,10 +837,10 @@ public class MainActivity extends Activity
 		int k = (reverse)? basses.length - i - 1: i;
 
 		int note = chords[key][k][bellows? 1: 0][0];
-		audio.writeNote(noteOff + 3, note, volume);
+		midi.writeNote(noteOff + 3, note, volume);
 
 		note = chords[key][k][bellows? 1: 0][1];
-		audio.writeNote(noteOff + 3, note, volume);
+		midi.writeNote(noteOff + 3, note, volume);
 
 		return false;
 	    }
@@ -898,169 +911,10 @@ public class MainActivity extends Activity
 	revView = (Switch)findViewById(R.id.reverse);
 	if (revView != null)
 	    revView.setOnCheckedChangeListener(this);
+
+	// Midi start
+
+	if (midi != null)
+	    midi.setOnMidiStartListener(this);
     }
-
-    // Audio
-
-    protected class Audio implements Runnable
-    {
-	static final int SAMPLE_RATE = 22050;
-	static final int BUFFER_SIZE = 4096;
-
-	protected Thread thread;
-	protected AudioTrack audioTrack;
-
-	protected short shortArray[];
-	protected int config[];
-
-	private byte changeMsg[];
-	private byte noteMsg[];
-
-	// Constructor
-
-	protected Audio()
-	{
-	    // Set volume, let the user adjust the volume with the
-	    // android volume buttons
-
-	    volume = 127;
-
-	    // Create midi message buffers, we need two because the
-	    // Sonivox synthesizer won't accept three byte program
-	    // change messages
-
-	    changeMsg = new byte[2];
-	    noteMsg = new byte[3];
-	}
-
-	// Start audio
-
-	protected void start()
-	{
-	    // Start the thread
-
-	    thread = new Thread(this, "Audio");
-	    thread.start();
-	}
-
-	// Run
-
-	@Override
-	public void run()
-	{
-	    processAudio();
-	}
-
-	// Stop
-
-	protected void stop()
-	{
-	    Thread t = thread;
-	    thread = null;
-
-	    // Wait for the thread to exit
-
-	    while (t != null && t.isAlive())
-		Thread.yield();
-	}
-
-	// Process Audio
-
-	protected void processAudio()
-	{
-	    int status = 0;
-	    int size = 0;
-
-	    // Init midi
-
-	    if ((size = midiInit()) == 0)
-		return;
-
-	    shortArray = new short[size];
-
-	    // Create audio track
-
-	    audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
-					AudioFormat.CHANNEL_OUT_STEREO,
-					AudioFormat.ENCODING_PCM_16BIT,
-					BUFFER_SIZE, AudioTrack.MODE_STREAM);
-	    if (audioTrack == null)
-		return;
-
-	    // Play track
-
-	    audioTrack.play();
-
-	    // Set instrument
-
-	    for (int i = 0; i <= buttons.length; i++)
-		writeChange(change + i, instrument);
-
-	    // Keep running until stopped
-
-	    while (thread != null)
-	    {
-		// Render the ausio
-
-		if (midiRender(shortArray) == 0)
-		    break;
-
-		// Write audio to audiotrack
-
-		status = audioTrack.write(shortArray, 0, shortArray.length);
-
-		if (status < 0)
-		    break;
-	    }
-
-	    // Render and write the last bit of audio
-
-	    if (status > 0)
-	    {
-		if (midiRender(shortArray) > 0)
-		    audioTrack.write(shortArray, 0, shortArray.length);
-	    }
-
-	    // Shut down audio
-
-	    midiShutdown();
-	    audioTrack.release();
-	}
-
-	// Write program change message, two bytes
-
-	boolean writeChange(int m, int i)
-	{
-	    changeMsg[0] = (byte)m;
-	    changeMsg[1] = (byte)i;
-
-	    return midiWrite(changeMsg);
-	}
-
-	// Write note message, three bytes
-
-	boolean writeNote(int m, int n, int v)
-	{
-	    noteMsg[0] = (byte)m;
-	    noteMsg[1] = (byte)n;
-	    noteMsg[2] = (byte)v;
-
-	    return midiWrite(noteMsg);
-	}
-    }
-
-    // Native midi methods
-
-    protected native int     midiInit();
-    protected native int     midiRender(short a[]);
-    protected native boolean midiWrite(byte a[]);
-    protected native boolean midiShutdown();
-
-    // Load midi library
-
-    static
-    {
-	System.loadLibrary("midi");
-    }
-
 }
