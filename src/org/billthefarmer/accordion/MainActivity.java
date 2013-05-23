@@ -289,8 +289,15 @@ public class MainActivity extends Activity
 
     final static String PREF_INSTRUMENT = "pref_instrument";
     final static String PREF_REVERSE = "pref_reverse";
+    final static String PREF_LAYOUT = "pref_layout";
     final static String PREF_FASCIA = "pref_fascia";
     final static String PREF_KEY = "pref_key";
+
+    // Layouts
+
+    static final int LAYOUT_STANDARD = 0;
+    static final int LAYOUT_LOWER_25 = 1;
+    static final int LAYOUT_UPPER_25 = 2;
 
     // Fascias
 
@@ -319,6 +326,7 @@ public class MainActivity extends Activity
 
     int instrument;
     int volume;
+    int layout;
     int fascia;
     int type;
     int key;
@@ -339,7 +347,27 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_main);
+
+	// Get preferences
+
+	getPreferences();
+
+	// Set layout
+
+	switch (layout)
+	{
+	case LAYOUT_STANDARD:
+	    setContentView(R.layout.activity_main);
+	    break;
+
+	case LAYOUT_LOWER_25:
+	    setContentView(R.layout.activity_main_lower);
+	    break;
+
+	case LAYOUT_UPPER_25:
+	    setContentView(R.layout.activity_main_upper);
+	    break;
+	}
 
 	// Add custom view to action bar
 
@@ -348,10 +376,6 @@ public class MainActivity extends Activity
 	actionBar.setDisplayShowCustomEnabled(true);
 
 	keyView = (TextView)actionBar.getCustomView();
-
-	// Get preferences
-
-	getPreferences();
 
 	// Create midi
 
@@ -537,6 +561,8 @@ public class MainActivity extends Activity
 
 	instrument =
 	    Integer.parseInt(preferences.getString(PREF_INSTRUMENT, "21"));
+	layout =
+	    Integer.parseInt(preferences.getString(PREF_LAYOUT, "0"));
 	fascia =
 	    Integer.parseInt(preferences.getString(PREF_FASCIA, "0"));
 	key =
@@ -551,7 +577,11 @@ public class MainActivity extends Activity
 	Resources resources = getResources();
 	String keys[] = resources.getStringArray(R.array.pref_key_entries);
 
-	keyView.setText(keys[key]);
+	String layouts[] =
+	    resources.getStringArray(R.array.pref_layout_entries);
+
+	if (keyView != null)
+	    keyView.setText(keys[key] + "    " + layouts[layout]);
 
 	// Set reverse
 

@@ -19,6 +19,9 @@
   <string name="pref_reverse">Reverse</string>
   <string name="pref_reverse_summ">Reverse buttons</string>
 
+  <string name="pref_layout">Layout</string>
+  <string name="pref_layout_summ">%s</string>
+
   <string name="pref_fascia">Fascia</string>
   <string name="pref_fascia_summ">%s</string>
 

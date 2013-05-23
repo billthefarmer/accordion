@@ -42,9 +42,10 @@ public class SettingsFragment extends PreferenceFragment
     implements OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_INSTRUMENT = "pref_instrument";
-    private static final String KEY_PREF_KEY = "pref_key";
+    private static final String KEY_PREF_LAYOUT = "pref_layout";
     private static final String KEY_PREF_FASCIA = "pref_fascia";
     private static final String KEY_PREF_ABOUT = "pref_about";
+    private static final String KEY_PREF_KEY = "pref_key";
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -62,6 +63,9 @@ public class SettingsFragment extends PreferenceFragment
 
 	ListPreference preference =
 	    (ListPreference)findPreference(KEY_PREF_INSTRUMENT);
+	preference.setSummary(preference.getEntry());
+
+	preference = (ListPreference)findPreference(KEY_PREF_LAYOUT);
 	preference.setSummary(preference.getEntry());
 
 	preference = (ListPreference)findPreference(KEY_PREF_KEY);
@@ -128,7 +132,7 @@ public class SettingsFragment extends PreferenceFragment
 					  String key)
     {
 	if (key.equals(KEY_PREF_INSTRUMENT) || key.equals(KEY_PREF_KEY) ||
-			key.equals(KEY_PREF_FASCIA))
+	    key.equals(KEY_PREF_LAYOUT) || key.equals(KEY_PREF_FASCIA))
 	{
 	    ListPreference preference = (ListPreference)findPreference(key);
 

@@ -64,11 +64,23 @@ public class SettingsActivity extends Activity
 	    // app icon in action bar clicked; go home
 	    Intent intent = new Intent(this, MainActivity.class);
 	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	    startActivity(intent);
 	    return true;
 	default:
 
 	    return super.onOptionsItemSelected(item);
 	}
+    }
+
+    // On back pressed
+
+    @Override
+    public void onBackPressed()
+    {
+	Intent intent = new Intent(this, MainActivity.class);
+	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	startActivity(intent);
     }
 }
