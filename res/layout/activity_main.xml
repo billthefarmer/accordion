@@ -362,24 +362,6 @@
 	android:src="@drawable/ic_button" />
 
     <ImageButton
-	android:id="@+id/bass_3"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_marginTop="8dp"
-	style="?android:attr/borderlessButtonStyle"
-	android:background="@android:color/transparent"
-	android:src="@drawable/ic_button" />
-
-    <ImageButton
-	android:id="@+id/bass_4"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_marginTop="8dp"
-	style="?android:attr/borderlessButtonStyle"
-	android:background="@android:color/transparent"
-	android:src="@drawable/ic_button" />
-
-    <ImageButton
 	android:id="@+id/bass_5"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -390,6 +372,24 @@
 
     <ImageButton
 	android:id="@+id/bass_6"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="8dp"
+	style="?android:attr/borderlessButtonStyle"
+	android:background="@android:color/transparent"
+	android:src="@drawable/ic_button" />
+
+    <ImageButton
+	android:id="@+id/bass_9"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="8dp"
+	style="?android:attr/borderlessButtonStyle"
+	android:background="@android:color/transparent"
+	android:src="@drawable/ic_button" />
+
+    <ImageButton
+	android:id="@+id/bass_10"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_marginTop="8dp"
@@ -410,6 +410,24 @@
       android:layout_toLeftOf="@id/row_5" >
 
     <ImageButton
+	android:id="@+id/bass_3"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="8dp"
+	style="?android:attr/borderlessButtonStyle"
+	android:background="@android:color/transparent"
+	android:src="@drawable/ic_button" />
+
+    <ImageButton
+	android:id="@+id/bass_4"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="8dp"
+	style="?android:attr/borderlessButtonStyle"
+	android:background="@android:color/transparent"
+	android:src="@drawable/ic_button" />
+
+    <ImageButton
 	android:id="@+id/bass_7"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -420,24 +438,6 @@
 
     <ImageButton
 	android:id="@+id/bass_8"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_marginTop="8dp"
-	style="?android:attr/borderlessButtonStyle"
-	android:background="@android:color/transparent"
-	android:src="@drawable/ic_button" />
-
-    <ImageButton
-	android:id="@+id/bass_9"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_marginTop="8dp"
-	style="?android:attr/borderlessButtonStyle"
-	android:background="@android:color/transparent"
-	android:src="@drawable/ic_button" />
-
-    <ImageButton
-	android:id="@+id/bass_10"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_marginTop="8dp"

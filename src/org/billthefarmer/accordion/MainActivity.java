@@ -50,7 +50,7 @@ public class MainActivity extends Activity
 {
     // Button ids
 
-    static final int buttons[][] =
+    private static final int buttons[][] =
     {{R.id.button_22, R.id.button_23,
       R.id.button_24, R.id.button_25,
       R.id.button_26, R.id.button_27,
@@ -70,7 +70,7 @@ public class MainActivity extends Activity
 
     // Bass button ids
 
-    static final int basses[] =
+    private static final int basses[] =
     {R.id.bass_1, R.id.bass_2,
      R.id.bass_3, R.id.bass_4,
      R.id.bass_5, R.id.bass_6,
@@ -80,7 +80,7 @@ public class MainActivity extends Activity
 
     // List of key offset values
 
-    static final int keyvals[][] =
+    private static final int keyvals[][] =
     {{ 3, -2, -7},  // F/Bb/Eb
      { 5,  0, -5},  // G/C/F
      { 7,  2, -3},  // A/D/G
@@ -94,16 +94,16 @@ public class MainActivity extends Activity
 
     // Types
 
-    static final int DIATONIC = 0;
-    static final int CHROMATIC = 1;
+    private static final int DIATONIC = 0;
+    private static final int CHROMATIC = 1;
 
-    static final int types[] =
+    private static final int types[] =
     {DIATONIC, DIATONIC, DIATONIC, DIATONIC,
      DIATONIC, CHROMATIC, CHROMATIC};
 
     // Midi notes for C Diatonic, G Chromatic
 
-    static final byte notes[][][] =
+    private static final byte notes[][][] =
     {{{52, 57}, // C Diatonic
       {55, 59},
       {60, 62},
@@ -129,7 +129,7 @@ public class MainActivity extends Activity
 
     // Chords
 
-    static final byte chords[][][][] =
+    private static final byte chords[][][][] =
     {
 	// F/Bb/Eb
 
@@ -197,7 +197,7 @@ public class MainActivity extends Activity
 
     // Keyboard notes
 
-    static final String notetops[][][] =
+    private static final String notetops[][][] =
     {
 	// F/Bb/Eb
 
@@ -244,7 +244,7 @@ public class MainActivity extends Activity
 
     // Hilites
 
-    static final boolean hilites[][][] =
+    private static final boolean hilites[][][] =
     {
 	// F/Bb/Eb
 
@@ -281,33 +281,33 @@ public class MainActivity extends Activity
 
     // Midi codes
 
-    static final int noteOff = 0x80;
-    static final int noteOn  = 0x90;
-    static final int change  = 0xc0;
+    private static final int noteOff = 0x80;
+    private static final int noteOn  = 0x90;
+    private static final int change  = 0xc0;
 
     // Preferences
 
-    final static String PREF_INSTRUMENT = "pref_instrument";
-    final static String PREF_REVERSE = "pref_reverse";
-    final static String PREF_LAYOUT = "pref_layout";
-    final static String PREF_FASCIA = "pref_fascia";
-    final static String PREF_KEY = "pref_key";
+    private final static String PREF_INSTRUMENT = "pref_instrument";
+    private final static String PREF_REVERSE = "pref_reverse";
+    private final static String PREF_LAYOUT = "pref_layout";
+    private final static String PREF_FASCIA = "pref_fascia";
+    private final static String PREF_KEY = "pref_key";
 
     // Layouts
 
-    static final int LAYOUT_STANDARD = 0;
-    static final int LAYOUT_LOWER_25 = 1;
-    static final int LAYOUT_UPPER_25 = 2;
+    private static final int LAYOUT_STANDARD = 0;
+    private static final int LAYOUT_LOWER_25 = 1;
+    private static final int LAYOUT_UPPER_25 = 2;
 
     // Fascias
 
-    final static int fascias[] =
+    private final static int fascias[] =
     {R.drawable.bg_onyx, R.drawable.bg_cherry,
      R.drawable.bg_rosewood,  R.drawable.bg_olivewood};
 
     // Button states
 
-    boolean buttonStates[][] =
+    private boolean buttonStates[][] =
     {{false, false, false, false, false, false,
       false, false, false, false, false},
      {false, false, false, false, false, false,
@@ -315,31 +315,31 @@ public class MainActivity extends Activity
      {false, false, false, false, false, false,
       false, false, false, false, false}};
 
-    boolean bassStates[] =
+    private boolean bassStates[] =
     {false, false, false, false, false, false,
      false, false, false, false, false, false};
 
-    boolean bellows = false;
-    boolean reverse = false;
+    private boolean bellows = false;
+    private boolean reverse = false;
 
     // Status
 
-    int instrument;
-    int volume;
-    int layout;
-    int fascia;
-    int type;
-    int key;
+    private int instrument;
+    private int volume;
+    private int layout;
+    private int fascia;
+    private int type;
+    private int key;
 
     // MidiDriver
 
-    MidiDriver midi;
+    private MidiDriver midi;
 
     // Views
 
-    TextView keyView;
-    Switch revView;
-    Toast toast;
+    private TextView keyView;
+    private Switch revView;
+    private Toast toast;
 
     // On create
 
@@ -534,7 +534,7 @@ public class MainActivity extends Activity
 
     // Save preferences
 
-    void savePreferences()
+    private void savePreferences()
     {
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(this);
@@ -548,7 +548,7 @@ public class MainActivity extends Activity
 
     // Get preferences
 
-    void getPreferences()
+    private void getPreferences()
     {
 	// Load preferences
 
@@ -881,7 +881,7 @@ public class MainActivity extends Activity
 
     // Show toast.
 
-    void showToast(int key)
+    private void showToast(int key)
     {
 	Resources resources = getResources();
 	String text = resources.getString(key);
@@ -889,7 +889,7 @@ public class MainActivity extends Activity
 	showToast(text);
     }
 
-    void showToast(String text)
+    private void showToast(String text)
     {
 	// Cancel the last one
 

@@ -31,8 +31,8 @@ import android.media.AudioTrack;
 
 public class MidiDriver implements Runnable
 {
-    static final int SAMPLE_RATE = 22050;
-    static final int BUFFER_SIZE = 4096;
+    private static final int SAMPLE_RATE = 22050;
+    private static final int BUFFER_SIZE = 4096;
 
     private Thread thread;
     private AudioTrack audioTrack;
