@@ -40,6 +40,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -511,11 +512,17 @@ public class MainActivity extends Activity
 	case R.id.reverse:
 	    reverse = isChecked;
 
+	    // Show toast
+
 	    if (reverse)
 		showToast(R.string.buttons_reversed);
 
 	    else
 		showToast(R.string.buttons_normal);
+
+	    // Set button hilites
+
+	    setButtonHilites();
 	    break;
 
 	default:
@@ -592,12 +599,93 @@ public class MainActivity extends Activity
 	if (revView != null)
 	    revView.setChecked(reverse);
 
+	// Set button hilites
+
+	setButtonHilites();
+
 	// Set fascia
 
 	View v = findViewById(R.id.fascia);
 
 	if (v != null)
 	    v.setBackgroundResource(fascias[fascia]);
+    }
+
+    // Set button hilites
+
+    private void setButtonHilites()
+    {
+	View v;
+	boolean large = false;
+
+	// If the first or last button in the middle row isn't there
+	// we must be using large buttons
+
+	if(((v = findViewById(buttons[1][0])) == null) ||
+	   ((v = findViewById(buttons[1][buttons[1].length - 1])) == null))
+	    large = true;
+
+	// Diatonic, set all buttons normal
+
+	if (type == DIATONIC)
+	{
+	    for (int i = 0; i < buttons.length; i++)
+	    {
+		for (int j = 0; j < buttons[i].length; j++)
+		{
+		    ImageButton button =
+			(ImageButton)findViewById(buttons[i][j]);
+		    if (button != null)
+		    {
+			if (large)
+			    button.setImageResource(R.drawable.ic_button_large);
+
+			else
+			    button.setImageResource(R.drawable.ic_button);
+		    }
+		}
+	    }
+	}
+
+	// Chromatic, set dark buttons
+
+	else
+	{
+	    for (int i = 0; i < hilites[key].length; i++)
+	    {
+		for (int j = 0; j < hilites[key][i].length; j++)
+		{
+		    int k = reverse? buttons[i].length - j - 1: j;
+
+		    ImageButton button =
+			(ImageButton)findViewById(buttons[i][k]);
+
+		    if (button != null)
+		    {
+			if (large)
+			{
+			    if (!hilites[key][i][j])
+				button.
+				    setImageResource(R.drawable.ic_button_large);
+
+			    else
+				button.
+				    setImageResource(R.drawable.ic_button_black_large);
+			}
+
+			else
+			{
+			    if (!hilites[key][i][j])
+				button.setImageResource(R.drawable.ic_button);
+
+			    else
+				button.
+				    setImageResource(R.drawable.ic_button_black);
+			}
+		    }
+		}
+	    }
+	}
     }
 
     // On bellows down
