@@ -31,6 +31,8 @@ import android.view.MenuItem;
 
 public class SettingsActivity extends Activity
 {
+    protected boolean layoutChanged;
+
     // On create
 
     @Override
@@ -64,7 +66,10 @@ public class SettingsActivity extends Activity
 	    // app icon in action bar clicked; go home
 	    Intent intent = new Intent(this, MainActivity.class);
 	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+	    if (layoutChanged)
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 	    startActivity(intent);
 	    return true;
 	default:
@@ -80,7 +85,10 @@ public class SettingsActivity extends Activity
     {
 	Intent intent = new Intent(this, MainActivity.class);
 	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+	    if (layoutChanged)
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 	startActivity(intent);
     }
 }

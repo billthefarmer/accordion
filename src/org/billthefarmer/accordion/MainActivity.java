@@ -198,50 +198,50 @@ public class MainActivity extends Activity
 
     // Keyboard notes
 
-    private static final String notetops[][][] =
-    {
-	// F/Bb/Eb
+    // private static final String notetops[][][] =
+    // {
+    // 	// F/Bb/Eb
 
-	{{"G", "Bb", "Eb", "G", "Bb", "Eb", "G", "Bb", "Eb", "G"},
-	 {"D", "F", "Bb", "D", "F", "Bb", "D", "F", "Bb", "D", "F"},
-	 {"C", "F", "A", "C", "F", "A", "C", "F", "A", "C"}},
+    // 	{{"G", "Bb", "Eb", "G", "Bb", "Eb", "G", "Bb", "Eb", "G"},
+    // 	 {"D", "F", "Bb", "D", "F", "Bb", "D", "F", "Bb", "D", "F"},
+    // 	 {"C", "F", "A", "C", "F", "A", "C", "F", "A", "C"}},
 
-	// G/C/F
+    // 	// G/C/F
 
-	{{"A", "C", "F", "A", "C", "F", "A", "C", "F", "A"},
-	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
-	 {"D", "G", "B", "D", "G", "B", "D", "G", "B", "D"}},
+    // 	{{"A", "C", "F", "A", "C", "F", "A", "C", "F", "A"},
+    // 	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
+    // 	 {"D", "G", "B", "D", "G", "B", "D", "G", "B", "D"}},
 
-	// A/D/G
+    // 	// A/D/G
 
-	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
-	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
-	 {"E", "A", "C#", "E", "A", "C#", "E", "A", "C#", "E"}},
+    // 	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
+    // 	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
+    // 	 {"E", "A", "C#", "E", "A", "C#", "E", "A", "C#", "E"}},
 
-	// C#/D/G
+    // 	// C#/D/G
 
-	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
-	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
-	 {"G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F", "G#"}},
+    // 	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
+    // 	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
+    // 	 {"G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F", "G#"}},
 
-	// B/C/C#
+    // 	// B/C/C#
 
-	{{"F", "G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F"},
-	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
-	 {"F#", "B", "D#", "F#", "B", "D#", "F#", "B", "D#", "F#"}},
+    // 	{{"F", "G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F"},
+    // 	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
+    // 	 {"F#", "B", "D#", "F#", "B", "D#", "F#", "B", "D#", "F#"}},
 
-	// C System
+    // 	// C System
 
-	{{"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"},
-	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
-	 {"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"}},
+    // 	{{"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"},
+    // 	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
+    // 	 {"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"}},
 
-	// B System
+    // 	// B System
 
-	{{"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"},
-	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
-	 {"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"}}
-    };
+    // 	{{"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"},
+    // 	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
+    // 	 {"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"}}
+    // };
 
     // Hilites
 
@@ -303,8 +303,9 @@ public class MainActivity extends Activity
     // Fascias
 
     private final static int fascias[] =
-    {R.drawable.bg_onyx, R.drawable.bg_cherry,
-     R.drawable.bg_rosewood,  R.drawable.bg_olivewood};
+    {R.drawable.bg_onyx, R.drawable.bg_teak,
+     R.drawable.bg_cherry, R.drawable.bg_rosewood,
+     R.drawable.bg_olivewood};
 
     // Button states
 

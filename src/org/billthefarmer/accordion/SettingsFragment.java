@@ -55,7 +55,7 @@ public class SettingsFragment extends PreferenceFragment
 	// Load the preferences from an XML resource
 
 	addPreferencesFromResource(R.xml.preferences);
-	
+
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(getActivity());
 
@@ -106,6 +106,17 @@ public class SettingsFragment extends PreferenceFragment
 	}
     }
 
+    @Override
+    public void onPause()
+    {
+	super.onPause();
+
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+	preferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
     // On preference tree click
 
     @Override
@@ -139,6 +150,12 @@ public class SettingsFragment extends PreferenceFragment
 	    // Set summary to be the user-description for the selected value
 
 	    preference.setSummary(preference.getEntry());
+	}
+
+	if (key.equals(KEY_PREF_LAYOUT))
+	{
+	    SettingsActivity activity = (SettingsActivity) getActivity();
+	    activity.layoutChanged = true;
 	}
     }
 }
