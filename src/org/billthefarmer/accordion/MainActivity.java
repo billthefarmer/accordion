@@ -196,53 +196,6 @@ public class MainActivity extends Activity
 	 {{44, 56}, {44, 56}}, {{37, 49}, {37, 49}}}, // Ab/Db
     };
 
-    // Keyboard notes
-
-    // private static final String notetops[][][] =
-    // {
-    // 	// F/Bb/Eb
-
-    // 	{{"G", "Bb", "Eb", "G", "Bb", "Eb", "G", "Bb", "Eb", "G"},
-    // 	 {"D", "F", "Bb", "D", "F", "Bb", "D", "F", "Bb", "D", "F"},
-    // 	 {"C", "F", "A", "C", "F", "A", "C", "F", "A", "C"}},
-
-    // 	// G/C/F
-
-    // 	{{"A", "C", "F", "A", "C", "F", "A", "C", "F", "A"},
-    // 	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
-    // 	 {"D", "G", "B", "D", "G", "B", "D", "G", "B", "D"}},
-
-    // 	// A/D/G
-
-    // 	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
-    // 	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
-    // 	 {"E", "A", "C#", "E", "A", "C#", "E", "A", "C#", "E"}},
-
-    // 	// C#/D/G
-
-    // 	{{"B", "D", "G", "B", "D", "G", "B", "D", "G", "B"},
-    // 	 {"F#", "A", "D", "F#", "A", "D", "F#", "A", "D", "F#", "A"},
-    // 	 {"G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F", "G#"}},
-
-    // 	// B/C/C#
-
-    // 	{{"F", "G#", "C#", "F", "G#", "C#", "F", "G#", "C#", "F"},
-    // 	 {"E", "G", "C", "E", "G", "C", "E", "G", "C", "E", "G"},
-    // 	 {"F#", "B", "D#", "F#", "B", "D#", "F#", "B", "D#", "F#"}},
-
-    // 	// C System
-
-    // 	{{"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"},
-    // 	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
-    // 	 {"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"}},
-
-    // 	// B System
-
-    // 	{{"A", "C", "Eb", "F#", "A", "C", "Eb", "F#", "A", "C"},
-    // 	 {"G", "Bb", "C#", "E", "G", "Bb", "C#", "E", "G", "Bb", "C#"},
-    // 	 {"Ab", "B", "D", "F", "Ab", "B", "D", "F", "Ab", "B"}}
-    // };
-
     // Hilites
 
     private static final boolean hilites[][][] =
@@ -306,6 +259,10 @@ public class MainActivity extends Activity
     {R.drawable.bg_onyx, R.drawable.bg_teak,
      R.drawable.bg_cherry, R.drawable.bg_rosewood,
      R.drawable.bg_olivewood};
+
+    // Volume
+
+    private static final int VOLUME = 96;
 
     // Button states
 
@@ -388,7 +345,7 @@ public class MainActivity extends Activity
 	// Set volume, let the user adjust the volume with the
 	// android volume buttons
 
-	volume = 127;
+	volume = VOLUME;
     }
 
     // On create option menu
