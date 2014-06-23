@@ -1,9 +1,9 @@
 Android Accordion
 =================
 
-![](http://github.com/billthefarmer/accordion/wiki/images/Accordion.png)
+![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Accordion.png)
 &nbsp;
-![](http://github.com/billthefarmer/accordion/wiki/images/Accordion-settings.png)
+![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Accordion-settings.png)
 
 This project uses the Sonivox EAS library, libsonivox.so, which is included in Android, but not documented or accessible using the standard Android NDK toolkit. In order to use this library you need to:
 
