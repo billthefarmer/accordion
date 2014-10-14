@@ -1,6 +1,8 @@
 Android Accordion
 =================
 
+Android accordion emulator for tablets.
+
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Accordion.png)
 &nbsp;
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Accordion-settings.png)
