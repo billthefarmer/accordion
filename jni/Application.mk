@@ -3,4 +3,4 @@
 # will also need to add the relevent copies of libsonivox.so to the
 # NDK.
 
-# APP_ABI := all
+APP_ABI := all
