@@ -1,6 +1,8 @@
 Android Accordion
 =================
-Android accordion emulator for tablets.
+Android accordion emulator for tablets. The app is available on
+[F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.accordion)
+and [here](https://github.com/billthefarmer/accordion/releases).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Accordion.png)
 &nbsp;
