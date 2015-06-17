@@ -23,37 +23,40 @@
 
 package org.billthefarmer.accordion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 
+import android.os.Handler;
+import android.os.Message;
+
 // MidiDriver
 
-public class MidiDriver implements Runnable
+public class MidiDriver
+    implements Handler.Callback
 {
     private static final int SAMPLE_RATE = 22050;
     private static final int BUFFER_SIZE = 4096;
 
-    private Thread thread;
+    private Handler handler;
     private AudioTrack audioTrack;
-
+    private List<byte[]> queuedEvents;
+    private DriverThread driverThread;
     private OnMidiStartListener listener;
 
-    private short shortArray[];
+    private short buffer[];
 
-    private byte changeMsg[];
-    private byte noteMsg[];
+    private boolean running;
 
     // Constructor
 
     public MidiDriver()
     {
-	// Create midi message buffers, we need two because the
-	// Sonivox synthesizer won't accept three byte program
-	// change messages
-
-	changeMsg = new byte[2];
-	noteMsg = new byte[3];
+	queuedEvents = new ArrayList<byte[]>();
+	handler = new Handler(this);
     }
 
     // Start midi
@@ -62,127 +65,67 @@ public class MidiDriver implements Runnable
     {
 	// Start the thread
 
-	thread = new Thread(this, "MidiDriver");
-	thread.start();
-    }
-
-    // Run
-
-    @Override
-    public void run()
-    {
-	processMidi();
-    }
-
-    // Stop midi
-
-    public void stop()
-    {
-	Thread t = thread;
-	thread = null;
-
-	// Wait for the thread to exit
-
-	while (t != null && t.isAlive())
-	    Thread.yield();
-    }
-
-    // Process MidiDriver
-
-    private void processMidi()
-    {
-	int status = 0;
-	int size = 0;
-
-	// Init midi
-
-	if ((size = init()) == 0)
-	    return;
-
-	shortArray = new short[size];
-
-	// Create audio track
-
-	audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
-				    AudioFormat.CHANNEL_OUT_STEREO,
-				    AudioFormat.ENCODING_PCM_16BIT,
-				    BUFFER_SIZE, AudioTrack.MODE_STREAM);
-	// Check audiotrack
-
-	if (audioTrack == null)
-	{
-	    shutdown();
-	    return;
-	}
-
-	// Check state
-
-	int state = audioTrack.getState();
-
-	if (state != AudioTrack.STATE_INITIALIZED)
-	{
-	    audioTrack.release();
-	    shutdown();
-	    return;
-	}
-
-	// Call listener
-
-	if (listener != null)
-	    listener.onMidiStart();
-
-	// Play track
-
-	audioTrack.play();
-
-	// Keep running until stopped
-
-	while (thread != null)
-	{
-	    // Render the audio
-
-	    if (render(shortArray) == 0)
-		break;
-
-	    // Write audio to audiotrack
-
-	    status = audioTrack.write(shortArray, 0, shortArray.length);
-
-	    if (status < 0)
-		break;
-	}
-
-	// Render and write the last bit of audio
-
-	if (status > 0)
-	    if (render(shortArray) > 0)
-		audioTrack.write(shortArray, 0, shortArray.length);
-
-	// Shut down audio
-
-	shutdown();
-	audioTrack.release();
+	driverThread = new DriverThread(this);
+	driverThread.start();
     }
 
     // Write program change message, two bytes
 
     public boolean writeChange(int m, int i)
     {
+	byte changeMsg[] = new byte[2];
+
 	changeMsg[0] = (byte)m;
 	changeMsg[1] = (byte)i;
 
-	return write(changeMsg);
+	queueEvent(changeMsg);
+	return true;
     }
 
     // Write note message, three bytes
 
     public boolean writeNote(int m, int n, int v)
     {
+	byte noteMsg[] = new byte[3];
+
 	noteMsg[0] = (byte)m;
 	noteMsg[1] = (byte)n;
 	noteMsg[2] = (byte)v;
 
-	return write(noteMsg);
+	queueEvent(noteMsg);
+	return true;
+    }
+
+    // Queue event
+
+    public void queueEvent(byte[] event)
+    {
+	synchronized (this)
+	{
+	    queuedEvents.add(event);
+	}
+    }
+
+    // Stop
+
+    public void stop()
+    {
+	synchronized (this)
+	{
+	    running = false;
+	}
+    }
+
+    // Handle message
+
+    public boolean handleMessage(Message msg)
+    {
+	// Call listener
+
+	if (listener != null)
+	    listener.onMidiStart();
+
+	return true;
     }
 
     // Set listener
@@ -190,6 +133,117 @@ public class MidiDriver implements Runnable
     public void setOnMidiStartListener(OnMidiStartListener l)
     {
 	listener = l;
+    }
+
+    private class DriverThread extends Thread
+    {
+	private static final String TAG = "DriverThread";
+
+	private MidiDriver driver;
+
+	// Constructor
+
+	public DriverThread(MidiDriver d)
+	{
+	    super(TAG);
+
+	    driver = d;
+	}
+
+	// Run
+
+	@Override
+	public void run()
+	{
+	    processMidi();
+	}
+
+	// Process MidiDriver
+
+	private void processMidi()
+	{
+	    int status = 0;
+	    int size = 0;
+
+	    // Init midi
+
+	    if ((size = init()) == 0)
+		return;
+
+	    buffer = new short[size];
+
+	    // Create audio track
+
+	    audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
+					AudioFormat.CHANNEL_OUT_STEREO,
+					AudioFormat.ENCODING_PCM_16BIT,
+					BUFFER_SIZE, AudioTrack.MODE_STREAM);
+	    // Check audiotrack
+
+	    if (audioTrack == null)
+	    {
+		shutdown();
+		return;
+	    }
+
+	    // Check state
+
+	    int state = audioTrack.getState();
+
+	    if (state != AudioTrack.STATE_INITIALIZED)
+	    {
+		audioTrack.release();
+		shutdown();
+		return;
+	    }
+
+	    // Send message
+
+	    handler.sendEmptyMessage(0);
+
+	    // Play track
+
+	    audioTrack.play();
+
+	    // Keep running until stopped
+
+	    running = true;
+	    while (running)
+	    {
+		// Write the midi events
+
+		synchronized (driver)
+		{
+		    for (byte[] queuedEvent: queuedEvents)
+			write(queuedEvent);
+
+		    queuedEvents.clear();
+		}
+
+		// Render the audio
+
+		if (render(buffer) == 0)
+		    break;
+
+		// Write audio to audiotrack
+
+		status = audioTrack.write(buffer, 0, buffer.length);
+
+		if (status < 0)
+		    break;
+	    }
+
+	    // Render and write the last bit of audio
+
+	    if (status > 0)
+		if (render(buffer) > 0)
+		    audioTrack.write(buffer, 0, buffer.length);
+
+	    // Shut down audio
+
+	    shutdown();
+	    audioTrack.release();
+	}
     }
 
     // Listener interface
