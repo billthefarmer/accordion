@@ -7,25 +7,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#undef org_billthefarmer_accordion_MidiDriver_SAMPLE_RATE
-#define org_billthefarmer_accordion_MidiDriver_SAMPLE_RATE 22050L
-#undef org_billthefarmer_accordion_MidiDriver_BUFFER_SIZE
-#define org_billthefarmer_accordion_MidiDriver_BUFFER_SIZE 4096L
 /*
  * Class:     org_billthefarmer_accordion_MidiDriver
  * Method:    init
- * Signature: ()I
+ * Signature: ()Z
  */
-JNIEXPORT jint JNICALL Java_org_billthefarmer_accordion_MidiDriver_init
+JNIEXPORT jboolean JNICALL Java_org_billthefarmer_accordion_MidiDriver_init
   (JNIEnv *, jobject);
-
-/*
- * Class:     org_billthefarmer_accordion_MidiDriver
- * Method:    render
- * Signature: ([S)I
- */
-JNIEXPORT jint JNICALL Java_org_billthefarmer_accordion_MidiDriver_render
-  (JNIEnv *, jobject, jshortArray);
 
 /*
  * Class:     org_billthefarmer_accordion_MidiDriver
