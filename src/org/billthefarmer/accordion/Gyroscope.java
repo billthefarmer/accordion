@@ -29,6 +29,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+// Gyroscope
+
 public class Gyroscope implements SensorEventListener
 {
     private SensorManager sensorManager;
@@ -42,7 +44,7 @@ public class Gyroscope implements SensorEventListener
     private final float[] deltaRotationVector = new float[4];
     private float timestamp;
 
-    // ...
+    // Constructor
 
     public Gyroscope(MainActivity m)
     {
@@ -52,11 +54,23 @@ public class Gyroscope implements SensorEventListener
 	sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
     }
 
+    public void start()
+    {
+	sensorManager.registerListener(this, sensor,
+				       SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    public void stop()
+    {
+	sensorManager.unregisterListener(this);
+    }
+
     public void onSensorChanged(SensorEvent event)
     {
 	// This timestep's delta rotation to be multiplied by the current
 	// rotation after computing it from the gyro sample data.
-	if (timestamp != 0) {
+	if (timestamp != 0)
+	{
 	    final float dT = (event.timestamp - timestamp) * NS2S;
 	    // Axis of the rotation sample, not normalized yet.
 	    float axisX = event.values[0];
@@ -99,7 +113,5 @@ public class Gyroscope implements SensorEventListener
 	// rotationCurrent = rotationCurrent * deltaRotationMatrix;
     }
 
-    public void onAccuracyChanged (Sensor sensor, int accuracy)
-    {
-    }
+    public void onAccuracyChanged (Sensor sensor, int accuracy) {}
 }
