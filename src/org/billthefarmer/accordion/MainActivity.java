@@ -294,6 +294,10 @@ public class MainActivity extends Activity
 
     private MidiDriver midi;
 
+    // Gyroscope
+
+    private Gyroscope gyro;
+
     // Views
 
     private TextView keyView;
@@ -340,6 +344,12 @@ public class MainActivity extends Activity
 
 	midi = new MidiDriver();
 
+	// Create gyro
+
+	gyro = new Gyroscope(this);
+
+	// Set listener
+
 	setListener();
 
 	// Set volume, let the user adjust the volume with the
@@ -374,6 +384,11 @@ public class MainActivity extends Activity
 
 	if (midi != null)
 	    midi.start();
+
+	// Start gyroscope
+
+	if (gyro != null)
+	    gyro.start();
     }
 
     // On pause
@@ -391,6 +406,11 @@ public class MainActivity extends Activity
 
 	if (midi != null)
 	    midi.stop();
+
+	// Stop gyroscope
+
+	if (gyro != null)
+	    gyro.stop();
     }
 
     // On options item
