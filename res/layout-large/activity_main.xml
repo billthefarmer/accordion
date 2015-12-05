@@ -474,7 +474,7 @@
       android:orientation="horizontal"
       android:layout_marginBottom="8dp"
       android:layout_alignBottom="@id/row_2"
-      android:layout_toLeftOf="@id/row_4" >
+      android:layout_toRightOf="@id/row_3" >
 
     <Switch
 	android:id="@+id/reverse"
