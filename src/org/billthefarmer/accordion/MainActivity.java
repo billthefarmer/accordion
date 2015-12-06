@@ -296,7 +296,7 @@ public class MainActivity extends Activity
 
     // Gyroscope
 
-    private Gyroscope gyro;
+    // private Gyroscope gyro;
 
     // Views
 
@@ -346,7 +346,7 @@ public class MainActivity extends Activity
 
 	// Create gyro
 
-	gyro = new Gyroscope(this);
+	// gyro = new Gyroscope(this);
 
 	// Set listener
 
@@ -387,8 +387,8 @@ public class MainActivity extends Activity
 
 	// Start gyroscope
 
-	if (gyro != null)
-	    gyro.start();
+	// if (gyro != null)
+	//     gyro.start();
     }
 
     // On pause
@@ -409,8 +409,8 @@ public class MainActivity extends Activity
 
 	// Stop gyroscope
 
-	if (gyro != null)
-	    gyro.stop();
+	// if (gyro != null)
+	//     gyro.stop();
     }
 
     // On options item

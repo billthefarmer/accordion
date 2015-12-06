@@ -458,6 +458,8 @@
       android:layout_alignBottom="@id/row_2"
       android:layout_alignParentRight="true"
       android:minWidth="32dp"
+      style="?android:attr/borderlessButtonStyle"
+      android:background="@android:color/transparent"
       android:src="@drawable/colour_button" />
   
   <LinearLayout
