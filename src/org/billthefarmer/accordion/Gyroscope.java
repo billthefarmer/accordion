@@ -23,19 +23,24 @@
 
 package org.billthefarmer.accordion;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 
 // Gyroscope
 
 public class Gyroscope implements SensorEventListener
 {
+    private static final String TAG = "Gyroscope";
+
+    private GyroscopeListener listener;
     private SensorManager sensorManager;
     private Sensor sensor;
-    private MainActivity main;
+    private Activity main;
 
     // Create a constant to convert nanoseconds to seconds.
     private static final float NS2S = 1.0f / 1000000000.0f;
@@ -46,7 +51,7 @@ public class Gyroscope implements SensorEventListener
 
     // Constructor
 
-    public Gyroscope(MainActivity m)
+    public Gyroscope(Activity m)
     {
 	main = m;
 	sensorManager =
@@ -67,18 +72,21 @@ public class Gyroscope implements SensorEventListener
 
     public void onSensorChanged(SensorEvent event)
     {
+	float omegaMagnitude = 0;
+
 	// This timestep's delta rotation to be multiplied by the current
 	// rotation after computing it from the gyro sample data.
 	if (timestamp != 0)
 	{
 	    final float dT = (event.timestamp - timestamp) * NS2S;
+
 	    // Axis of the rotation sample, not normalized yet.
 	    float axisX = event.values[0];
 	    float axisY = event.values[1];
 	    float axisZ = event.values[2];
 
 	    // Calculate the angular speed of the sample
-	    float omegaMagnitude = (float)Math.sqrt(axisX*axisX + axisY*axisY +
+	    omegaMagnitude = (float)Math.sqrt(axisX*axisX + axisY*axisY +
 						    axisZ*axisZ);
 
 	    // Normalize the rotation vector if it's big enough to get the
@@ -108,10 +116,30 @@ public class Gyroscope implements SensorEventListener
 	float[] deltaRotationMatrix = new float[9];
 	SensorManager.getRotationMatrixFromVector(deltaRotationMatrix,
 						  deltaRotationVector);
+
 	// User code should concatenate the delta rotation we computed
 	// with the current rotation in order to get the updated rotation.
 	// rotationCurrent = rotationCurrent * deltaRotationMatrix;
+
+	Log.d(TAG, "omegaMagnitude: " + omegaMagnitude);
+	Log.d(TAG, "Vec: " + deltaRotationVector[0] + ", " +
+	      deltaRotationVector[1] + ", " + deltaRotationVector[2] +
+	       ", " + deltaRotationVector[3]);
     }
 
     public void onAccuracyChanged (Sensor sensor, int accuracy) {}
+
+    // Set gyroscope listener
+
+    public void setGyroscopeListener(GyroscopeListener l)
+    {
+	listener = l;
+    }
+
+    // Listener interface
+
+    public interface GyroscopeListener
+    {
+	public abstract void onGyroChange(float rotation[]);
+    }
 }
