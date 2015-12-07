@@ -23,8 +23,6 @@
 
 package org.billthefarmer.accordion;
 
-import org.billthefarmer.accordion.MidiDriver.OnMidiStartListener;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.ActionBar;
@@ -38,7 +36,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -47,7 +44,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
-    implements OnTouchListener, OnCheckedChangeListener, OnMidiStartListener
+    implements View.OnTouchListener, CompoundButton.OnCheckedChangeListener,
+	       MidiDriver.OnMidiStartListener, Gyroscope.GyroscopeListener
 {
     // Button ids
 
@@ -253,6 +251,12 @@ public class MainActivity extends Activity
     private static final int LAYOUT_LOWER_25 = 1;
     private static final int LAYOUT_UPPER_25 = 2;
 
+    // Bellows
+
+    private static final int BELLOWS_STANDARD = 0;
+    private static final int BELLOWS_GYRO_X = 1;
+    private static final int BELLOWS_GYRO_Y = 2;
+
     // Fascias
 
     private final static int fascias[] =
@@ -289,6 +293,8 @@ public class MainActivity extends Activity
     private int fascia;
     private int type;
     private int key;
+
+    private int source;
 
     // MidiDriver
 
@@ -387,7 +393,7 @@ public class MainActivity extends Activity
 
 	// Start gyroscope
 
-	if (gyro != null)
+	if (gyro != null && source != BELLOWS_STANDARD)
 	    gyro.start();
     }
 
@@ -472,6 +478,23 @@ public class MainActivity extends Activity
 
 	default:
 	    return false;
+	}
+    }
+
+    // On gyro change
+
+    public void onGyroChange(float rotation[])
+    {
+	switch (source)
+	{
+	case BELLOWS_STANDARD:
+	    break;
+
+	case BELLOWS_GYRO_X:
+	    break;
+
+	case BELLOWS_GYRO_Y:
+	    break;
 	}
     }
 
@@ -1084,5 +1107,10 @@ public class MainActivity extends Activity
 
 	if (midi != null)
 	    midi.setOnMidiStartListener(this);
+
+	// Gyroscope
+
+	if (gyro != null)
+	    gyro.setGyroscopeListener(this);
     }
 }
