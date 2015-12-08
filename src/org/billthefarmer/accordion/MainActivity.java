@@ -243,6 +243,7 @@ public class MainActivity extends Activity
     private final static String PREF_REVERSE = "pref_reverse";
     private final static String PREF_LAYOUT = "pref_layout";
     private final static String PREF_FASCIA = "pref_fascia";
+    private final static String PREF_BELLOWS = "pref_bellows";
     private final static String PREF_KEY = "pref_key";
 
     // Layouts
@@ -253,9 +254,13 @@ public class MainActivity extends Activity
 
     // Bellows
 
-    private static final int BELLOWS_STANDARD = 0;
+    private static final int BELLOWS_TOUCH = 0;
     private static final int BELLOWS_GYRO_X = 1;
     private static final int BELLOWS_GYRO_Y = 2;
+
+    // Rotation
+
+    private static final float MIN_ROTATION = 0.5f;
 
     // Fascias
 
@@ -393,7 +398,7 @@ public class MainActivity extends Activity
 
 	// Start gyroscope
 
-	if (gyro != null && source != BELLOWS_STANDARD)
+	if (gyro != null && source != BELLOWS_TOUCH)
 	    gyro.start();
     }
 
@@ -485,16 +490,35 @@ public class MainActivity extends Activity
 
     public void onGyroChange(float rotation[])
     {
-	switch (source)
+	if (rotation != null)
 	{
-	case BELLOWS_STANDARD:
-	    break;
+	    switch (source)
+	    {
+	    case BELLOWS_TOUCH:
+		break;
 
-	case BELLOWS_GYRO_X:
-	    break;
+	    case BELLOWS_GYRO_X:
+		if (rotation[0] > MIN_ROTATION)
+		    onBellowsDown(null, null);
 
-	case BELLOWS_GYRO_Y:
-	    break;
+		if (rotation[0] < -MIN_ROTATION)
+		    onBellowsUp(null, null);
+		break;
+
+	    case BELLOWS_GYRO_Y:
+		if (rotation[1] > MIN_ROTATION)
+		    onBellowsDown(null, null);
+
+		if (rotation[1] < -MIN_ROTATION)
+		    onBellowsUp(null, null);
+		break;
+	    }
+	}
+
+	else
+	{
+	    showToast(R.string.no_gyro);
+	    source = BELLOWS_TOUCH;
 	}
     }
 
@@ -551,6 +575,8 @@ public class MainActivity extends Activity
 
 	editor.putBoolean(PREF_REVERSE, reverse);
 
+	editor.putString(PREF_BELLOWS, String.valueOf(source));
+
 	editor.commit();
     }
 
@@ -573,6 +599,8 @@ public class MainActivity extends Activity
 	    Integer.parseInt(preferences.getString(PREF_LAYOUT, "0"));
 	fascia =
 	    Integer.parseInt(preferences.getString(PREF_FASCIA, "0"));
+	source =
+	    Integer.parseInt(preferences.getString(PREF_BELLOWS, "0"));
 	key =
 	    Integer.parseInt(preferences.getString(PREF_KEY, "2"));
 

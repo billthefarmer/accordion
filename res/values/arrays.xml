@@ -327,4 +327,20 @@
 
   </string-array>
 
+  <string-array name="pref_bellows_entries">
+
+    <item>Touch</item>
+    <item>Rotation X</item>
+    <item>Rotation Y</item>
+
+  </string-array>
+
+  <string-array name="pref_bellows_entry_values">
+
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+
+  </string-array>
+
 </resources>

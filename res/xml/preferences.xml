@@ -63,6 +63,22 @@
   </PreferenceCategory>
 
   <PreferenceCategory
+      android:key="pref_bellows_category"
+      android:title="@string/pref_bellows">
+
+    <ListPreference
+	android:key="pref_bellows"
+	android:icon="@drawable/ic_pref_bellows"
+	android:title="@string/pref_bellows"
+	android:summary="@string/pref_bellows_summ"
+	android:entries="@array/pref_bellows_entries"
+	android:entryValues="@array/pref_bellows_entry_values"
+	android:dialogIcon="@drawable/ic_pref_bellows"
+	android:defaultValue="@integer/def_bellows" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
       android:key="pref_about_category"
       android:title="@string/pref_about">
 

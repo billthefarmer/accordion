@@ -44,6 +44,7 @@ public class SettingsFragment extends PreferenceFragment
     private static final String KEY_PREF_INSTRUMENT = "pref_instrument";
     private static final String KEY_PREF_LAYOUT = "pref_layout";
     private static final String KEY_PREF_FASCIA = "pref_fascia";
+    private static final String KEY_PREF_BELLOWS = "pref_bellows";
     private static final String KEY_PREF_ABOUT = "pref_about";
     private static final String KEY_PREF_KEY = "pref_key";
 
@@ -72,6 +73,9 @@ public class SettingsFragment extends PreferenceFragment
 	preference.setSummary(preference.getEntry());
 
 	preference = (ListPreference)findPreference(KEY_PREF_FASCIA);
+	preference.setSummary(preference.getEntry());
+
+	preference = (ListPreference)findPreference(KEY_PREF_BELLOWS);
 	preference.setSummary(preference.getEntry());
 
 	// Get about summary
@@ -143,7 +147,8 @@ public class SettingsFragment extends PreferenceFragment
 					  String key)
     {
 	if (key.equals(KEY_PREF_INSTRUMENT) || key.equals(KEY_PREF_KEY) ||
-	    key.equals(KEY_PREF_LAYOUT) || key.equals(KEY_PREF_FASCIA))
+	    key.equals(KEY_PREF_LAYOUT) || key.equals(KEY_PREF_FASCIA) ||
+	    key.equals(KEY_PREF_BELLOWS))
 	{
 	    ListPreference preference = (ListPreference)findPreference(key);
 

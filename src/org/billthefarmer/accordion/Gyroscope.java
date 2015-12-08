@@ -36,7 +36,7 @@ import android.util.Log;
 public class Gyroscope implements SensorEventListener
 {
     private static final String TAG = "Gyroscope";
-    private static final float EPSILON = 1.0f;
+    private static final float EPSILON = 0.5f;
 
     private GyroscopeListener listener;
     private SensorManager sensorManager;
@@ -57,8 +57,14 @@ public class Gyroscope implements SensorEventListener
 
     public void start()
     {
-	sensorManager.registerListener(this, sensor,
-				       SensorManager.SENSOR_DELAY_NORMAL);
+	if (sensor != null)
+	    sensorManager.registerListener(this, sensor,
+					   SensorManager.SENSOR_DELAY_NORMAL);
+	// No gyroscope
+
+	else
+	    if (listener != null)
+		listener.onGyroChange(null);
     }
 
     public void stop()
