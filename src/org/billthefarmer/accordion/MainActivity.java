@@ -499,18 +499,18 @@ public class MainActivity extends Activity
 
 	    case BELLOWS_GYRO_X:
 		if (rotation[0] > MIN_ROTATION)
-		    onBellowsDown(null, null);
+		    onBellowsUp(null, null);
 
 		if (rotation[0] < -MIN_ROTATION)
-		    onBellowsUp(null, null);
+		    onBellowsDown(null, null);
 		break;
 
 	    case BELLOWS_GYRO_Y:
 		if (rotation[1] > MIN_ROTATION)
-		    onBellowsDown(null, null);
+		    onBellowsUp(null, null);
 
 		if (rotation[1] < -MIN_ROTATION)
-		    onBellowsUp(null, null);
+		    onBellowsDown(null, null);
 		break;
 	    }
 	}
