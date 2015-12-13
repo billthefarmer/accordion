@@ -31,6 +31,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,7 +40,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +47,8 @@ public class MainActivity extends Activity
     implements View.OnTouchListener, CompoundButton.OnCheckedChangeListener,
 	       MidiDriver.OnMidiStartListener, Gyroscope.GyroscopeListener
 {
+    private static final String TAG = "Accordion";
+
     // Button ids
 
     private static final int buttons[][] =
@@ -299,7 +301,7 @@ public class MainActivity extends Activity
     private int type;
     private int key;
 
-    private int source;
+    private int input;
 
     // MidiDriver
 
@@ -398,7 +400,7 @@ public class MainActivity extends Activity
 
 	// Start gyroscope
 
-	if (gyro != null && source != BELLOWS_TOUCH)
+	if (gyro != null && input != BELLOWS_TOUCH)
 	    gyro.start();
     }
 
@@ -492,7 +494,7 @@ public class MainActivity extends Activity
     {
 	if (rotation != null)
 	{
-	    switch (source)
+	    switch (input)
 	    {
 	    case BELLOWS_TOUCH:
 		break;
@@ -518,7 +520,11 @@ public class MainActivity extends Activity
 	else
 	{
 	    showToast(R.string.no_gyro);
-	    source = BELLOWS_TOUCH;
+	    input = BELLOWS_TOUCH;
+
+	    View v = findViewById(R.id.bellows);
+	    if (v != null)
+		v.setVisibility(View.VISIBLE);
 	}
     }
 
@@ -575,7 +581,7 @@ public class MainActivity extends Activity
 
 	editor.putBoolean(PREF_REVERSE, reverse);
 
-	editor.putString(PREF_BELLOWS, String.valueOf(source));
+	editor.putString(PREF_BELLOWS, String.valueOf(input));
 
 	editor.commit();
     }
@@ -599,7 +605,7 @@ public class MainActivity extends Activity
 	    Integer.parseInt(preferences.getString(PREF_LAYOUT, "0"));
 	fascia =
 	    Integer.parseInt(preferences.getString(PREF_FASCIA, "0"));
-	source =
+	input =
 	    Integer.parseInt(preferences.getString(PREF_BELLOWS, "0"));
 	key =
 	    Integer.parseInt(preferences.getString(PREF_KEY, "2"));
@@ -628,13 +634,29 @@ public class MainActivity extends Activity
 	if (revView != null)
 	    revView.setChecked(reverse);
 
+	// Set bellows
+
+	View v = findViewById(R.id.bellows);
+
+	if (input == BELLOWS_TOUCH)
+	{
+	    if (v != null)
+		v.setVisibility(View.VISIBLE);
+	}
+
+	else
+	{
+	    if (v != null)
+		v.setVisibility(View.GONE);
+	}
+
 	// Set button hilites
 
 	setButtonHilites();
 
 	// Set fascia
 
-	View v = findViewById(R.id.fascia);
+	v = findViewById(R.id.fascia);
 
 	if (v != null)
 	    v.setBackgroundResource(fascias[fascia]);
@@ -642,18 +664,9 @@ public class MainActivity extends Activity
 
     // Set button hilites
 
-    @SuppressWarnings("unused")
     private void setButtonHilites()
     {
-	View v;
-	boolean large = false;
-
-	// If the first or last button in the middle row isn't there
-	// we must be using large buttons
-
-	if(((v = findViewById(buttons[1][0])) == null) ||
-	   ((v = findViewById(buttons[1][buttons[1].length - 1])) == null))
-	    large = true;
+	boolean large = layout != LAYOUT_STANDARD;
 
 	// Diatonic, set all buttons normal
 

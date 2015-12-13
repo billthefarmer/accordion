@@ -320,21 +320,29 @@
 	style="?android:attr/borderlessButtonStyle"
 	android:background="@android:color/transparent"
 	android:src="@drawable/ic_button" />
-    
+
   </LinearLayout>
 
-  <Button
-      android:id="@+id/bellows"
+  <LinearLayout
+      android:id="@+id/row_6"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:orientation="vertical"
       android:layout_marginTop="8dp"
       android:layout_marginBottom="8dp"
       android:layout_marginRight="8dp"
       android:layout_alignTop="@id/row_2"
       android:layout_alignBottom="@id/row_2"
-      android:layout_alignParentRight="true"
-      android:background="@drawable/colour_button" />
-  
+      android:layout_alignParentRight="true" >
+
+    <Button
+	android:id="@+id/bellows"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/colour_button" />
+
+  </LinearLayout>
+
   <LinearLayout
       android:id="@+id/row_5"
       android:layout_width="wrap_content"
@@ -342,7 +350,7 @@
       android:orientation="vertical"
       android:layout_marginRight="8dp"
       android:layout_centerVertical="true"
-      android:layout_toLeftOf="@id/bellows" >
+      android:layout_toLeftOf="@id/row_6" >
 
     <ImageButton
 	android:id="@+id/bass_1"
