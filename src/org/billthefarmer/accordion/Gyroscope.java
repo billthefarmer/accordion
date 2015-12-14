@@ -23,7 +23,6 @@
 
 package org.billthefarmer.accordion;
 
-import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -36,71 +35,71 @@ import android.util.Log;
 public class Gyroscope implements SensorEventListener
 {
     private static final String TAG = "Gyroscope";
-    private static final float EPSILON = 0.5f;
+    protected static final float EPSILON = 0.5f;
 
     private GyroscopeListener listener;
     private SensorManager sensorManager;
     private Sensor sensor;
-    private Activity main;
-
-    private float timestamp;
 
     // Constructor
 
-    public Gyroscope(Activity m)
+    public Gyroscope(Context context)
     {
-	main = m;
 	sensorManager =
-	    (SensorManager)main.getSystemService(Context.SENSOR_SERVICE);
+	    (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 	sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
     }
+
+    // Start
 
     public void start()
     {
 	if (sensor != null)
 	    sensorManager.registerListener(this, sensor,
 					   SensorManager.SENSOR_DELAY_NORMAL);
-	// No gyroscope
-
-	else
-	    if (listener != null)
-		listener.onGyroChange(null);
     }
+
+    // Has gyro
+
+    public boolean hasGyro()
+    {
+	if (sensor != null)
+	    return true;
+
+	return false;
+    }
+
+    // Stop
 
     public void stop()
     {
 	sensorManager.unregisterListener(this);
     }
 
+    // On sensor changed
+
+    @Override
     public void onSensorChanged(SensorEvent event)
     {
-	// This timestep's delta rotation to be multiplied by the current
-	// rotation after computing it from the gyro sample data.
-	if (timestamp != 0)
+	// Axis of the rotation sample, not normalized yet.
+	float axisX = event.values[0];
+	float axisY = event.values[1];
+	float axisZ = event.values[2];
+
+	// Calculate the angular speed of the sample
+	float omegaMagnitude =
+	    (float)Math.sqrt(axisX*axisX + axisY*axisY + axisZ*axisZ);
+
+	if (omegaMagnitude > EPSILON)
 	{
-	    // Axis of the rotation sample, not normalized yet.
-	    float axisX = event.values[0];
-	    float axisY = event.values[1];
-	    float axisZ = event.values[2];
+	    // Log.d(TAG, "Omega: " + omegaMagnitude);
+	    // Log.d(TAG, "Gyro: " + axisX + ", " + axisY + ", " + axisZ);
 
-	    // Calculate the angular speed of the sample
-	    float omegaMagnitude =
-		(float)Math.sqrt(axisX*axisX + axisY*axisY + axisZ*axisZ);
+	    // Call listener
 
-	    // Normalize the rotation vector if it's big enough to get the
-	    // axis (that is, EPSILON should represent your maximum allowable
-	    // margin of error)
-	    if (omegaMagnitude > EPSILON)
-	    {
-		// Log.d(TAG, "Omega Magnitude: " + omegaMagnitude);
-		// Log.d(TAG, "Gyro: " + axisX + ", " + axisY + ", " + axisZ);
-
-		if (listener != null)
-		    listener.onGyroChange(event.values);
-	    }
+	    if (listener != null)
+		listener.onGyroChange(event.values);
 	}
-
-	timestamp = event.timestamp;
     }
 
     // Unused

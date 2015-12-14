@@ -78,6 +78,9 @@ public class SettingsFragment extends PreferenceFragment
 	preference = (ListPreference)findPreference(KEY_PREF_BELLOWS);
 	preference.setSummary(preference.getEntry());
 
+	SettingsActivity activity = (SettingsActivity)getActivity();
+	preference.setEnabled(activity.hasGyro);
+
 	// Get about summary
 
 	Preference about = findPreference(KEY_PREF_ABOUT);

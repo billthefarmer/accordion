@@ -248,6 +248,10 @@ public class MainActivity extends Activity
     private final static String PREF_BELLOWS = "pref_bellows";
     private final static String PREF_KEY = "pref_key";
 
+    // Gyro
+
+    protected final static String HAS_GYRO = "has_gyro";
+
     // Layouts
 
     private static final int LAYOUT_STANDARD = 0;
@@ -259,10 +263,6 @@ public class MainActivity extends Activity
     private static final int BELLOWS_TOUCH = 0;
     private static final int BELLOWS_GYRO_X = 1;
     private static final int BELLOWS_GYRO_Y = 2;
-
-    // Rotation
-
-    private static final float MIN_ROTATION = 0.5f;
 
     // Fascias
 
@@ -291,6 +291,7 @@ public class MainActivity extends Activity
 
     private boolean bellows = false;
     private boolean reverse = false;
+    private boolean hasGyro = false;
 
     // Status
 
@@ -360,6 +361,11 @@ public class MainActivity extends Activity
 	// Create gyro
 
 	gyro = new Gyroscope(this);
+
+	// Check for gyro
+
+	if (gyro != null)
+	    hasGyro = gyro.hasGyro();
 
 	// Set listener
 
@@ -440,6 +446,7 @@ public class MainActivity extends Activity
 
 	case R.id.settings:
 	    Intent intent = new Intent(this, SettingsActivity.class);
+	    intent.putExtra(HAS_GYRO, hasGyro);
 	    startActivity(intent);
 
 	    return true;
@@ -492,39 +499,26 @@ public class MainActivity extends Activity
 
     public void onGyroChange(float rotation[])
     {
-	if (rotation != null)
+	switch (input)
 	{
-	    switch (input)
-	    {
-	    case BELLOWS_TOUCH:
-		break;
+	case BELLOWS_TOUCH:
+	    break;
 
-	    case BELLOWS_GYRO_X:
-		if (rotation[0] > MIN_ROTATION)
-		    onBellowsUp(null, null);
+	case BELLOWS_GYRO_X:
+	    if (rotation[0] > Gyroscope.EPSILON)
+		onBellowsUp(null, null);
 
-		if (rotation[0] < -MIN_ROTATION)
-		    onBellowsDown(null, null);
-		break;
+	    if (rotation[0] < -Gyroscope.EPSILON)
+		onBellowsDown(null, null);
+	    break;
 
-	    case BELLOWS_GYRO_Y:
-		if (rotation[1] > MIN_ROTATION)
-		    onBellowsUp(null, null);
+	case BELLOWS_GYRO_Y:
+	    if (rotation[1] > Gyroscope.EPSILON)
+		onBellowsUp(null, null);
 
-		if (rotation[1] < -MIN_ROTATION)
-		    onBellowsDown(null, null);
-		break;
-	    }
-	}
-
-	else
-	{
-	    showToast(R.string.no_gyro);
-	    input = BELLOWS_TOUCH;
-
-	    View v = findViewById(R.id.bellows);
-	    if (v != null)
-		v.setVisibility(View.VISIBLE);
+	    if (rotation[1] < -Gyroscope.EPSILON)
+		onBellowsDown(null, null);
+	    break;
 	}
     }
 

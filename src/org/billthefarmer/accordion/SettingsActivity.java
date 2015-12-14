@@ -32,6 +32,7 @@ import android.view.MenuItem;
 public class SettingsActivity extends Activity
 {
     protected boolean layoutChanged;
+    protected boolean hasGyro;
 
     // On create
 
@@ -51,6 +52,10 @@ public class SettingsActivity extends Activity
 	ActionBar actionBar = getActionBar();
 	actionBar.setDisplayHomeAsUpEnabled(true);
 
+	// Check gyro
+
+	Intent intent = getIntent();
+	hasGyro = intent.getBooleanExtra(MainActivity.HAS_GYRO, false);
     }
 
     // On options item selected

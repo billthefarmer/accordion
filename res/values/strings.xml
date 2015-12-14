@@ -7,8 +7,6 @@
   <string name="buttons_normal">Buttons normal</string>
   <string name="buttons_reversed">Buttons reversed</string>
 
-  <string name="no_gyro">No Gyroscope</string>
-
   <string name="copyright">Copyright \u00A9 2014 Bill Farmer</string>
   <string name="licence">Licence: GNU GPLv3</string>
   
