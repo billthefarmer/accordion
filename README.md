@@ -1,5 +1,5 @@
-Android Accordion
-=================
+# Android Accordion [![Build Status](https://travis-ci.org/billthefarmer/accordion.svg?branch=master)](https://travis-ci.org/billthefarmer/accordion)
+
 Android accordion emulator for tablets. The app is available on
 [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.accordion)
 and [here](https://github.com/billthefarmer/accordion/releases).
