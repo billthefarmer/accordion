@@ -27,10 +27,8 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -39,7 +37,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class SettingsFragment extends PreferenceFragment
-    implements OnSharedPreferenceChangeListener
+    implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static final String KEY_PREF_INSTRUMENT = "pref_instrument";
     private static final String KEY_PREF_LAYOUT = "pref_layout";
@@ -92,7 +90,7 @@ public class SettingsFragment extends PreferenceFragment
 	    info = manager.getPackageInfo("org.billthefarmer.accordion", 0);
 	}
 	
-	catch (NameNotFoundException e)
+	catch (Exception e)
 	{
 	    e.printStackTrace();
 	}

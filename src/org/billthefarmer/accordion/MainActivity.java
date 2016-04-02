@@ -23,31 +23,27 @@
 
 package org.billthefarmer.accordion;
 
-import org.billthefarmer.accordion.MidiDriver.OnMidiStartListener;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
-    implements OnTouchListener, OnCheckedChangeListener, OnMidiStartListener
+    implements View.OnTouchListener, CompoundButton.OnCheckedChangeListener,
+	       MidiDriver.OnMidiStartListener
 {
     // Button ids
 
@@ -524,7 +520,7 @@ public class MainActivity extends Activity
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(this);
 
-	Editor editor = preferences.edit();
+	SharedPreferences.Editor editor = preferences.edit();
 
 	editor.putBoolean(PREF_REVERSE, reverse);
 
