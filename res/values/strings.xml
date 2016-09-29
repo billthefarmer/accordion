@@ -2,6 +2,7 @@
 <resources>
 
   <string name="app_name">Accordion</string>
+  <string name="not_supported">Accordion is not supported on this version of Android. The midi synthesizer will not work</string>
   <string name="settings">Settings</string>
 
   <string name="buttons_normal">Buttons normal</string>

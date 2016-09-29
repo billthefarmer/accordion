@@ -23,10 +23,13 @@
 
 package org.billthefarmer.accordion;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -336,6 +339,14 @@ public class MainActivity extends Activity
 
 	keyView = (TextView)actionBar.getCustomView();
 
+	// Check Android version
+
+	if (Build.VERSION.SDK_INT >= 24)
+	{
+	    showAlert(R.string.app_name, R.string.not_supported);
+	    return;
+	}
+
 	// Create midi
 
 	midi = new MidiDriver();
@@ -407,6 +418,40 @@ public class MainActivity extends Activity
 
 	// if (gyro != null)
 	//     gyro.stop();
+    }
+
+    // Show alert
+
+    void showAlert(int appName, int errorBuffer)
+    {
+	// Create an alert dialog builder
+
+	AlertDialog.Builder builder =
+	    new AlertDialog.Builder(this);
+
+	// Set the title, message and button
+
+	builder.setTitle(appName);
+	builder.setMessage(errorBuffer);
+	builder.setNeutralButton(android.R.string.ok,
+				 new DialogInterface.OnClickListener()
+				 {
+				     @Override
+				     public void onClick(DialogInterface dialog,
+							 int which)
+				     {
+					 // Dismiss dialog
+
+					 dialog.dismiss();
+				     }
+				 });
+	// Create the dialog
+
+	AlertDialog dialog = builder.create();
+
+	// Show it
+
+	dialog.show();
     }
 
     // On options item
