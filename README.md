@@ -4,6 +4,8 @@ Android accordion emulator for tablets. The app is available on
 [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.accordion)
 and [here](https://github.com/billthefarmer/accordion/releases).
 
+Note that this app will not work on Android 7 Nougat and above. The libsonivox library is not accessible. It is possible to include copies of the library in the app, but this ganerates problems due to use of libutils and libcutils by libsonivox.
+
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Accordion.png)
 &nbsp;
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Accordion-settings.png)
