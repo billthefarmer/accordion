@@ -1,8 +1,8 @@
 *.*~
 *.jar
+*.apk
 .*
 bin
 gen
 local.properties
 obj
-libsonivox.so
