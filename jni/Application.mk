@@ -3,4 +3,4 @@
 # will also need to add the relevent copies of libsonivox.so to the
 # NDK.
 
-APP_ABI := armeabi armeabi-v7a mips x86
+APP_ABI := all
