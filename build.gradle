@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 'android-17'
+    buildToolsVersion '24.0.2'
+}
+
+android {
+    lintOptions {
+        // abortOnError false
+	disable 'IconMissingDensityFolder', 'ContentDescription', 'Overdraw'
+    }
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile 'com.github.billthefarmer:mididriver:v1.11'
+}

@@ -4,5 +4,7 @@
 .*
 bin
 gen
+build
 local.properties
+gradle.properties
 obj
