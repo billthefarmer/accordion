@@ -36,6 +36,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
+// SettingsFragment
 public class SettingsFragment extends PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
@@ -51,7 +52,6 @@ public class SettingsFragment extends PreferenceFragment
 	super.onCreate(savedInstanceState);
 
 	// Load the preferences from an XML resource
-
 	addPreferencesFromResource(R.xml.preferences);
 
 	SharedPreferences preferences =
@@ -73,37 +73,18 @@ public class SettingsFragment extends PreferenceFragment
 	preference.setSummary(preference.getEntry());
 
 	// Get about summary
-
 	Preference about = findPreference(KEY_PREF_ABOUT);
 	String sum = (String) about.getSummary();
 
-	// Get context and package manager
-
-	Context context = getActivity();
-	PackageManager manager = context.getPackageManager();
-
-	// Get info
-
-	PackageInfo info = null;
-	try
-	{
-	    info = manager.getPackageInfo("org.billthefarmer.accordion", 0);
-	}
-	
-	catch (Exception e)
-	{
-	    e.printStackTrace();
-	}
-
 	// Set version in text view
-
-	if (info != null)
+	if (about != null)
 	{
-	    String s = String.format(sum, info.versionName);
+	    String s = String.format(sum, BuildConfig.VERSION_NAME);
 	    about.setSummary(s);
 	}
     }
 
+    // onPause
     @Override
     public void onPause()
     {
@@ -116,7 +97,6 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     // On preference tree click
-
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
 					 Preference preference)
@@ -135,7 +115,6 @@ public class SettingsFragment extends PreferenceFragment
     }
 
     // On shared preference changed
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences,
 					  String key)
@@ -146,7 +125,6 @@ public class SettingsFragment extends PreferenceFragment
 	    ListPreference preference = (ListPreference)findPreference(key);
 
 	    // Set summary to be the user-description for the selected value
-
 	    preference.setSummary(preference.getEntry());
 	}
 

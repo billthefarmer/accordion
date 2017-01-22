@@ -316,7 +316,6 @@ public class MainActivity extends Activity
     }
 
     // On create option menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -327,35 +326,29 @@ public class MainActivity extends Activity
     }
 
     // On resume
-
     @Override
     protected void onResume()
     {
 	super.onResume();
 
 	// Get preferences
-
 	getPreferences();
 
 	// Start midi
-
 	if (midi != null)
 	    midi.start();
     }
 
     // On pause
-
     @Override
     protected void onPause()
     {
 	super.onPause();
 
 	// Save preferences
-
 	savePreferences();
 
 	// Stop midi
-
 	if (midi != null)
 	    midi.stop();
     }
@@ -364,12 +357,10 @@ public class MainActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
 	// Get id
-
 	int id = item.getItemId();
 	switch (id)
 	{
 	    // Settings
-
 	case R.id.settings:
 	    Intent intent = new Intent(this, SettingsActivity.class);
 	    startActivity(intent);
@@ -382,7 +373,6 @@ public class MainActivity extends Activity
     }
 
     // On touch
-
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
@@ -392,7 +382,6 @@ public class MainActivity extends Activity
 	switch (action)
 	{
 	    // Down
-
 	case MotionEvent.ACTION_DOWN:
 	    switch (id)
 	    {
@@ -404,7 +393,6 @@ public class MainActivity extends Activity
 	    }
 
 	    // Up
-
 	case MotionEvent.ACTION_UP:
 	    switch (id)
 	    {
@@ -421,7 +409,6 @@ public class MainActivity extends Activity
     }
 
     // On checked changed
-
     @Override
     public void onCheckedChanged(CompoundButton button,
 				 boolean isChecked)
@@ -431,12 +418,10 @@ public class MainActivity extends Activity
 	switch (id)
 	{
 	    // Reverse switch
-
 	case R.id.reverse:
 	    reverse = isChecked;
 
 	    // Show toast
-
 	    if (reverse)
 		showToast(R.string.buttons_reversed);
 
@@ -444,7 +429,6 @@ public class MainActivity extends Activity
 		showToast(R.string.buttons_normal);
 
 	    // Set button hilites
-
 	    setButtonHilites();
 	    break;
 
@@ -457,13 +441,11 @@ public class MainActivity extends Activity
     public void onMidiStart()
     {
 	// Set instrument
-
 	for (int i = 0; i <= buttons.length; i++)
 	    writeChange(change + i, instrument);
     }
 
     // Save preferences
-
     private void savePreferences()
     {
 	SharedPreferences preferences =
@@ -473,22 +455,19 @@ public class MainActivity extends Activity
 
 	editor.putBoolean(PREF_REVERSE, reverse);
 
-	editor.commit();
+	editor.apply();
     }
 
     // Get preferences
-
     private void getPreferences()
     {
 	// Load preferences
-
 	PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(this);
 
 	// Set preferences
-
 	instrument =
 	    Integer.parseInt(preferences.getString(PREF_INSTRUMENT, "21"));
 	layout =
@@ -499,11 +478,9 @@ public class MainActivity extends Activity
 	    Integer.parseInt(preferences.getString(PREF_KEY, "2"));
 
 	// Set type from key
-
 	type = types[key];
 
 	// Set key text
-
 	Resources resources = getResources();
 	String keys[] = resources.getStringArray(R.array.pref_key_entries);
 
@@ -514,20 +491,16 @@ public class MainActivity extends Activity
 	    keyView.setText(keys[key] + "    " + layouts[layout]);
 
 	// Set reverse
-
 	reverse = preferences.getBoolean(PREF_REVERSE, false);
 
 	// Set reverse switch
-
 	if (revView != null)
 	    revView.setChecked(reverse);
 
 	// Set button hilites
-
 	setButtonHilites();
 
 	// Set fascia
-
 	View v = findViewById(R.id.fascia);
 
 	if (v != null)
@@ -535,7 +508,6 @@ public class MainActivity extends Activity
     }
 
     // Set button hilites
-
     @SuppressWarnings("unused")
     private void setButtonHilites()
     {
@@ -544,13 +516,11 @@ public class MainActivity extends Activity
 
 	// If the first or last button in the middle row isn't there
 	// we must be using large buttons
-
 	if(((v = findViewById(buttons[1][0])) == null) ||
 	   ((v = findViewById(buttons[1][buttons[1].length - 1])) == null))
 	    large = true;
 
 	// Diatonic, set all buttons normal
-
 	if (type == DIATONIC)
 	{
 	    for (int i = 0; i < buttons.length; i++)
@@ -572,7 +542,6 @@ public class MainActivity extends Activity
 	}
 
 	// Chromatic, set dark buttons
-
 	else
 	{
 	    for (int i = 0; i < hilites[key].length; i++)
@@ -613,7 +582,6 @@ public class MainActivity extends Activity
     }
 
     // On bellows down
-
     private boolean onBellowsDown(View v, MotionEvent event)
     {
 	if (!bellows)
@@ -621,7 +589,6 @@ public class MainActivity extends Activity
 	    bellows = true;
 
 	    // Change all notes
-
 	    for (int i = 0; i < buttons.length; i++)
 	    {
 		for (int j = 0; j < buttons[i].length; j++)
@@ -649,14 +616,12 @@ public class MainActivity extends Activity
 			    keyvals[key][i];
 
 			// Stop note
-
 			writeNote(noteOff + i, note, volume);
 
 			note = notes[type][k][bellows? 1: 0] +
 			    keyvals[key][i];
 
 			// Play note
-
 			writeNote(noteOn + i, note, volume);
 		    }
 		}
@@ -683,9 +648,6 @@ public class MainActivity extends Activity
 			}
 
 			// Play chord
-
-			// int k = (reverse)? basses[j].length - j - 1: i;
-
 			int note = chords[key][k][!bellows? 1: 0][0];
 			writeNote(noteOff + 3, note, volume);
 
@@ -712,7 +674,6 @@ public class MainActivity extends Activity
 	    bellows = false;
 
 	    // Change all notes
-
 	    for (int i = 0; i < buttons.length; i++)
 	    {
 		for (int j = 0; j < buttons[i].length; j++)
@@ -740,14 +701,12 @@ public class MainActivity extends Activity
 			    keyvals[key][i];
 
 			// Stop note
-
 			writeNote(noteOff + i, note, volume);
 
 			note = notes[type][k][bellows? 1: 0] +
 			    keyvals[key][i];
 
 			// Play note
-
 			writeNote(noteOn + i, note, volume);
 		    }
 		}
@@ -774,9 +733,6 @@ public class MainActivity extends Activity
 			}
 
 			// Play chord
-
-			// int k = (reverse)? basses.length - j - 1: i;
-
 			int note =	chords[key][k][!bellows? 1: 0][0];
 			writeNote(noteOff + 3, note, volume);
 
@@ -801,7 +757,6 @@ public class MainActivity extends Activity
 	int id = v.getId();
 
 	// Check melody buttons
-
 	for (int i = 0; i < buttons.length; i++)
 	{
 	    for (int j = 0; j < buttons[i].length; j++)
@@ -811,7 +766,6 @@ public class MainActivity extends Activity
 		    buttonStates[i][j] = true;
 
 		    // Play note
-
 		    int k = 0;
 
 		    switch (i)
@@ -837,7 +791,6 @@ public class MainActivity extends Activity
 	}
 
 	// Check bass buttons
-
 	for (int i = 0; i < basses.length; i++)
 	{
 	    for (int j = 0; j < basses[i].length; j++)
@@ -861,9 +814,6 @@ public class MainActivity extends Activity
 		    }
 
 		    // Play chord
-
-		    // int k = (reverse)? basses.length - j - 1: i;
-
 		    int note = chords[key][k][bellows? 1: 0][0];
 		    writeNote(noteOn + 3, note, volume);
 
@@ -891,7 +841,6 @@ public class MainActivity extends Activity
 		    buttonStates[i][j] = false;
 
 		    // Stop note
-
 		    int k = 0;
 
 		    switch (i)
@@ -918,7 +867,6 @@ public class MainActivity extends Activity
 	}
 
 	// Check bass buttons
-
 	for (int i = 0; i < basses.length; i++)
 	{
 	    for (int j = 0; j < basses[i].length; j++)
@@ -942,9 +890,6 @@ public class MainActivity extends Activity
 		    }
 
 		    // Stop chord
-
-		    // int k = (reverse)? basses.length - i - 1: i;
-
 		    int note = chords[key][k][bellows? 1: 0][0];
 		    writeNote(noteOff + 3, note, volume);
 
@@ -960,7 +905,6 @@ public class MainActivity extends Activity
     }
 
     // Show toast.
-
     private void showToast(int key)
     {
 	Resources resources = getResources();
@@ -972,25 +916,21 @@ public class MainActivity extends Activity
     private void showToast(String text)
     {
 	// Cancel the last one
-
 	if (toast != null)
 	    toast.cancel();
 
 	// Make a new one
-
 	toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 	toast.setGravity(Gravity.CENTER, 0, 0);
 	toast.show();
     }
 
     // Set listener
-
     private void setListener()
     {
 	View v;
 
 	// Set listener for all buttons
-
 	for (int i = 0; i < buttons.length; i++)
 	{
 	    for (int j = 0; j < buttons[i].length; j++)
@@ -1002,7 +942,6 @@ public class MainActivity extends Activity
 	}
 
 	// Bass buttons
-
 	for (int i = 0; i < basses.length; i++)
 	{
 	    for (int j = 0; j < basses[i].length; j++)
@@ -1014,25 +953,21 @@ public class MainActivity extends Activity
 	}
 
 	// Bellows
-
 	v = findViewById(R.id.bellows);
 	if (v != null)
 	    v.setOnTouchListener(this);
 
 	// Reverse switch
-
 	revView = (Switch)findViewById(R.id.reverse);
 	if (revView != null)
 	    revView.setOnCheckedChangeListener(this);
 
 	// Midi start
-
 	if (midi != null)
 	    midi.setOnMidiStartListener(this);
     }
 
     // Write program change message, two bytes
-
     public boolean writeChange(int m, int i)
     {
 	byte changeMsg[] = new byte[2];
@@ -1045,7 +980,6 @@ public class MainActivity extends Activity
     }
 
     // Write note message, three bytes
-
     public boolean writeNote(int m, int n, int v)
     {
 	byte noteMsg[] = new byte[3];
