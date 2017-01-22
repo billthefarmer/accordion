@@ -1028,7 +1028,7 @@ public class MainActivity extends Activity
 	// Midi start
 
 	if (midi != null)
-	    setOnMidiStartListener(this);
+	    midi.setOnMidiStartListener(this);
     }
 
     // Write program change message, two bytes

@@ -17,7 +17,7 @@ android {
 
 android {
     lintOptions {
-        // abortOnError false
+        abortOnError false
 	disable 'IconMissingDensityFolder', 'ContentDescription', 'Overdraw'
     }
 }
