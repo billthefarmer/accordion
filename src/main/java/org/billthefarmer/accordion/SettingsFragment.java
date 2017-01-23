@@ -127,11 +127,5 @@ public class SettingsFragment extends PreferenceFragment
 	    // Set summary to be the user-description for the selected value
 	    preference.setSummary(preference.getEntry());
 	}
-
-	if (key.equals(KEY_PREF_LAYOUT))
-	{
-	    SettingsActivity activity = (SettingsActivity) getActivity();
-	    activity.layoutChanged = true;
-	}
     }
 }

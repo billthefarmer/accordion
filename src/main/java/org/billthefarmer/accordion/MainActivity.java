@@ -229,9 +229,10 @@ public class MainActivity extends Activity
     private final static String PREF_KEY = "pref_key";
 
     // Layouts
-    private static final int LAYOUT_STANDARD = 0;
-    private static final int LAYOUT_LOWER_25 = 1;
-    private static final int LAYOUT_UPPER_25 = 2;
+    private final static int layouts[] =
+    {R.layout.activity_main,
+     R.layout.activity_main_lower,
+     R.layout.activity_main_upper};
 
     // Fascias
     private final static int fascias[] =
@@ -284,33 +285,27 @@ public class MainActivity extends Activity
 	getPreferences();
 
 	// Set layout
-	switch (layout)
-	{
-	case LAYOUT_STANDARD:
-	    setContentView(R.layout.activity_main);
-	    break;
-
-	case LAYOUT_LOWER_25:
-	    setContentView(R.layout.activity_main_lower);
-	    break;
-
-	case LAYOUT_UPPER_25:
-	    setContentView(R.layout.activity_main_upper);
-	    break;
-	}
+        setContentView(layouts[layout]);
 
 	// Add custom view to action bar
 	ActionBar actionBar = getActionBar();
-	actionBar.setCustomView(R.layout.text_view);
-	actionBar.setDisplayShowCustomEnabled(true);
+        if (actionBar != null)
+        {
+            actionBar.setCustomView(R.layout.text_view);
+            actionBar.setDisplayShowCustomEnabled(true);
+            keyView = (TextView)actionBar.getCustomView();
+        }
 
-	keyView = (TextView)actionBar.getCustomView();
-
+        // Set fascia
+        View view = findViewById(R.id.fascia);
+        if (view != null)
+            view.setBackgroundResource(fascias[fascia]);
+ 
 	// Create midi
 	midi = new MidiDriver();
 
-	// Set listener
-	setListener();
+	// Set listeners
+	setListeners();
 
 	// Set volume, let the user adjust the volume with the
 	// android volume buttons
@@ -470,15 +465,42 @@ public class MainActivity extends Activity
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(this);
 
-	// Set preferences
+	// Get instrument
 	instrument =
 	    Integer.parseInt(preferences.getString(PREF_INSTRUMENT, "21"));
-	layout =
+
+        // Get layout
+	int layout =
 	    Integer.parseInt(preferences.getString(PREF_LAYOUT, "0"));
-	fascia =
+
+        // Layout changed
+        if (layout != this.layout)
+        {
+            this.layout = layout;
+            setContentView(layouts[layout]);
+            setListeners();
+
+            // Set fascia
+            View view = findViewById(R.id.fascia);
+            if (view != null)
+                view.setBackgroundResource(fascias[fascia]);
+        }
+
+        // Get fascia
+	int fascia =
 	    Integer.parseInt(preferences.getString(PREF_FASCIA, "0"));
-	key =
-	    Integer.parseInt(preferences.getString(PREF_KEY, "2"));
+
+        // Fascia changed
+        if (fascia != this.fascia)
+        {
+            this.fascia = fascia;
+            View view = findViewById(R.id.fascia);
+            if (view != null)
+                view.setBackgroundResource(fascias[fascia]);
+        }
+
+        // Get key
+	key = Integer.parseInt(preferences.getString(PREF_KEY, "2"));
 
 	// Set type from key
 	type = types[key];
@@ -504,12 +526,6 @@ public class MainActivity extends Activity
 
 	// Set button hilites
 	setButtonHilites();
-
-	// Set fascia
-	View v = findViewById(R.id.fascia);
-
-	if (v != null)
-	    v.setBackgroundResource(fascias[fascia]);
     }
 
     // Set button hilites
@@ -929,8 +945,8 @@ public class MainActivity extends Activity
 	toast.show();
     }
 
-    // Set listener
-    private void setListener()
+    // Set listeners
+    private void setListeners()
     {
 	View v;
 
