@@ -23,9 +23,7 @@
 
 package org.billthefarmer.accordion;
 
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,6 +31,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +43,8 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 import org.billthefarmer.mididriver.MidiDriver;
 
@@ -374,6 +376,7 @@ public class MainActivity extends Activity
 
     // On touch
     @Override
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouch(View v, MotionEvent event)
     {
 	int action = event.getAction();
@@ -486,9 +489,11 @@ public class MainActivity extends Activity
 
 	String layouts[] =
 	    resources.getStringArray(R.array.pref_layout_entries);
-
+        String format = resources.getString(R.string.format);
+        String status = String.format(Locale.getDefault(), format,
+                                      keys[key], layouts[layout]);
 	if (keyView != null)
-	    keyView.setText(keys[key] + "    " + layouts[layout]);
+	    keyView.setText(status);
 
 	// Set reverse
 	reverse = preferences.getBoolean(PREF_REVERSE, false);
@@ -508,7 +513,6 @@ public class MainActivity extends Activity
     }
 
     // Set button hilites
-    @SuppressWarnings("unused")
     private void setButtonHilites()
     {
 	View v;

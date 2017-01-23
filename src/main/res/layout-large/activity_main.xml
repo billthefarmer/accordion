@@ -5,7 +5,6 @@
     android:id="@+id/fascia"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_onyx"
     tools:ignore="RtlHardcoded" >
 
   <LinearLayout
@@ -15,7 +14,8 @@
       android:orientation="vertical"
       android:layout_marginLeft="8dp"
       android:layout_centerVertical="true"
-      android:layout_alignParentLeft="true" >
+      android:layout_alignParentLeft="true"
+      tools:ignore="ContentDescription">
 
     <ImageButton
 	android:id="@+id/button_1"
@@ -117,7 +117,8 @@
       android:orientation="vertical"
       android:layout_marginLeft="8dp"
       android:layout_centerVertical="true"
-      android:layout_toRightOf="@id/row_1" >
+      android:layout_toRightOf="@id/row_1"
+      tools:ignore="ContentDescription">
 
     <ImageButton
 	android:id="@+id/button_11"
@@ -228,7 +229,8 @@
       android:orientation="vertical"
       android:layout_marginLeft="8dp"
       android:layout_centerVertical="true"
-      android:layout_toRightOf="@id/row_2" >
+      android:layout_toRightOf="@id/row_2"
+      tools:ignore="ContentDescription">
 
     <ImageButton
 	android:id="@+id/button_22"
@@ -333,6 +335,7 @@
       android:layout_alignTop="@id/row_2"
       android:layout_alignBottom="@id/row_2"
       android:layout_alignParentRight="true"
+      tools:ignore="ContentDescription"
       android:background="@drawable/colour_button" />
   
   <LinearLayout
@@ -342,7 +345,8 @@
       android:orientation="vertical"
       android:layout_marginRight="8dp"
       android:layout_centerVertical="true"
-      android:layout_toLeftOf="@id/bellows" >
+      android:layout_toLeftOf="@id/bellows"
+      tools:ignore="ContentDescription">
 
     <ImageButton
 	android:id="@+id/bass_1"
@@ -408,7 +412,8 @@
       android:orientation="vertical"
       android:layout_marginRight="8dp"
       android:layout_centerVertical="true"
-      android:layout_toLeftOf="@id/row_5" >
+      android:layout_toLeftOf="@id/row_5"
+      tools:ignore="ContentDescription">
 
     <ImageButton
 	android:id="@+id/bass_3"
@@ -474,7 +479,8 @@
       android:orientation="horizontal"
       android:layout_marginBottom="8dp"
       android:layout_alignBottom="@id/row_2"
-      android:layout_toRightOf="@id/row_3" >
+      android:layout_toRightOf="@id/row_3"
+      tools:ignore="ContentDescription">
 
     <Switch
 	android:id="@+id/reverse"
