@@ -26,8 +26,6 @@ package org.billthefarmer.accordion;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -300,7 +298,7 @@ public class MainActivity extends Activity
         View view = findViewById(R.id.fascia);
         if (view != null)
             view.setBackgroundResource(fascias[fascia]);
- 
+
 	// Create midi
 	midi = new MidiDriver();
 
@@ -350,6 +348,7 @@ public class MainActivity extends Activity
 	    midi.stop();
     }
 
+    // onOptionsItemSelected
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -361,7 +360,6 @@ public class MainActivity extends Activity
 	case R.id.settings:
 	    Intent intent = new Intent(this, SettingsActivity.class);
 	    startActivity(intent);
-
 	    return true;
 
 	default:
@@ -450,9 +448,7 @@ public class MainActivity extends Activity
 	    PreferenceManager.getDefaultSharedPreferences(this);
 
 	SharedPreferences.Editor editor = preferences.edit();
-
 	editor.putBoolean(PREF_REVERSE, reverse);
-
 	editor.apply();
     }
 
@@ -505,10 +501,9 @@ public class MainActivity extends Activity
 	// Set type from key
 	type = types[key];
 
-	// Set key text
+	// Set status text
 	Resources resources = getResources();
 	String keys[] = resources.getStringArray(R.array.pref_key_entries);
-
 	String layouts[] =
 	    resources.getStringArray(R.array.pref_layout_entries);
         String format = resources.getString(R.string.format);

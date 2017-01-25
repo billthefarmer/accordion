@@ -27,8 +27,6 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -46,6 +44,7 @@ public class SettingsFragment extends PreferenceFragment
     private static final String KEY_PREF_ABOUT = "pref_about";
     private static final String KEY_PREF_KEY = "pref_key";
 
+    // onCreate
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
