@@ -13,9 +13,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 'android-17'
     buildToolsVersion '24.0.2'
-}
 
-android {
     lintOptions {
         abortOnError false
 	disable 'IconDipSize', 'IconDensities', 'IconDuplicates'
@@ -23,7 +21,8 @@ android {
 }
 
 repositories {
-    maven { url "https://jitpack.io" }
+    maven { url "https://jitpack.io"
+    }
 }
 
 dependencies {
