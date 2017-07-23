@@ -1,4 +1,4 @@
-# Android Accordion [![Build Status](https://travis-ci.org/billthefarmer/accordion.svg?branch=master)](https://travis-ci.org/billthefarmer/accordion)
+# ![Logo](src/main/res/drawable-mdpi/ic_launcher.png) Accordion [![Build Status](https://travis-ci.org/billthefarmer/accordion.svg?branch=master)](https://travis-ci.org/billthefarmer/accordion) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.accordion)
 
 Android accordion emulator for tablets. The app is available on
 [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.accordion)
