@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Accordion</string>
+  <string name="settings">Configurações</string>
+  <string name="format">"%1$s    %2$s"</string>
+
+  <string name="buttons_normal">Botões normais</string>
+  <string name="buttons_reversed">Botões invertidos</string>
+
+  <string name="copyright">Direitos \u00A9 2014 Bill Farmer</string>
+  <string name="licence">Licença: GNU GPLv3</string>
+  
+  <string name="pref_instrument">Instrumento</string>
+  <string name="pref_instrument_summ">%s</string>
+
+  <string name="pref_key">Tecla</string>
+  <string name="pref_key_summ">%s</string>
+
+  <string name="pref_reverse">Invertido</string>
+  <string name="pref_reverse_summ">Botões invertidos</string>
+
+  <string name="pref_layout">Layout</string>
+  <string name="pref_layout_summ">%s</string>
+
+  <string name="pref_fascia">Fascia</string>
+  <string name="pref_fascia_summ">%s</string>
+
+  <string name="pref_about">Sobre</string>
+  <string name="pref_about_summ">Versão do Accordion %s</string>
+
+</resources>
