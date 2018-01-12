@@ -15,8 +15,9 @@ android {
     buildToolsVersion '25.0.2'
 
     lintOptions {
-        abortOnError false
 	disable 'IconDipSize', 'IconDensities', 'IconDuplicates'
+        // abortOnError false
+
     }
 }
 
