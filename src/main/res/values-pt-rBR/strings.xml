@@ -8,8 +8,13 @@
   <string name="buttons_normal">Botões normais</string>
   <string name="buttons_reversed">Botões invertidos</string>
 
-  <string name="copyright">Direitos \u00A9 2014 Bill Farmer</string>
-  <string name="licence">Licença: GNU GPLv3</string>
+  <string name="copyright">Direitos \u00A9 2014 <a
+  href="http://billthefarmer.github.io">Bill Farmer</a>
+  </string>
+  <string name="built">Construído %s</string>
+  <string name="licence">Licença: <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
   
   <string name="pref_instrument">Instrumento</string>
   <string name="pref_instrument_summ">%s</string>
