@@ -29,38 +29,34 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 // SettingsActivity
-public class SettingsActivity extends Activity
-{
+public class SettingsActivity extends Activity {
     // On create
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-	super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	// Display the fragment as the main content.
-	getFragmentManager().beginTransaction()
-	    .replace(android.R.id.content, new SettingsFragment())
-	    .commit();
+        // Display the fragment as the main content.
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
 
-	// Enable back navigation on action bar
-	ActionBar actionBar = getActionBar();
-	actionBar.setDisplayHomeAsUpEnabled(true);
+        // Enable back navigation on action bar
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     // On options item selected
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-	// Switch on item id
-	switch (item.getItemId())
-	{
-	case android.R.id.home:
-	    // app icon in action bar clicked; go home
-            finish();
-	    return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Switch on item id
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                finish();
+                return true;
 
-	default:
-	    return false;
-	}
+            default:
+                return false;
+        }
     }
 }
