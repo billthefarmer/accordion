@@ -1,35 +1,51 @@
 buildscript {
     repositories {
         jcenter()
+        google()
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.3'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven { url "https://jitpack.io" }
     }
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-22'
-    buildToolsVersion '27.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
+        applicationId "org.billthefarmer.accordion"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 113
+        versionName "1.13"
+
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
     lintOptions {
-	disable 'IconDipSize', 'IconDensities', 'IconDuplicates'
+        disable 'IconDipSize', 'IconDensities', 'IconDuplicates'
         // abortOnError false
-
     }
-}
 
-repositories {
-    maven { url "https://jitpack.io"
+    compileOptions {
+        encoding = 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    compile 'com.github.billthefarmer:mididriver:v1.14'
+    implementation 'com.github.billthefarmer:mididriver:v1.16'
 }
