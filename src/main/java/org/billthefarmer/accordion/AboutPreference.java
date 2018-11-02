@@ -51,6 +51,7 @@ public class AboutPreference extends DialogPreference
         // Get version text view
 	TextView version = (TextView) view.findViewById(R.id.about);
 
+	// Set version in text view
 	if (version != null)
 	{
 	    String v = (String) version.getText();

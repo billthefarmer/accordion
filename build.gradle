@@ -21,7 +21,6 @@ android {
     lintOptions {
 	disable 'IconDipSize', 'IconDensities', 'IconDuplicates'
         // abortOnError false
-
     }
 }
 
