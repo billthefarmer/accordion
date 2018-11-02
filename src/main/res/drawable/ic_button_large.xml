@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_button_down_large" android:state_pressed="true" /> <!-- pressed -->
-    <item android:drawable="@drawable/ic_button_up_large" /> <!-- default -->
+  <item android:drawable="@drawable/ic_button_down_large"
+        android:state_pressed="true" /> <!-- pressed -->
+  <item android:drawable="@drawable/ic_button_up_large" /> <!-- default -->
 </selector>

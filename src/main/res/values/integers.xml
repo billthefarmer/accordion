@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="def_instrument">21</integer>
-    <integer name="def_key">2</integer>
-    <integer name="def_layout">0</integer>
-    <integer name="def_fascia">0</integer>
+  <integer name="def_instrument">21</integer>
+  <integer name="def_key">2</integer>
+  <integer name="def_layout">0</integer>
+  <integer name="def_fascia">0</integer>
 
 </resources>
