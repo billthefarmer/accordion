@@ -3,3 +3,7 @@ local.properties
 *.iml
 .gradle/
 .idea/
+.*
+*~
+*.apk
+*.orig
