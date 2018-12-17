@@ -474,6 +474,7 @@ public class MainActivity extends Activity
             break;
 
         default:
+            break;
         }
     }
 
@@ -588,14 +589,17 @@ public class MainActivity extends Activity
                 {
                     ImageButton button =
                         findViewById(aButton1);
-                    if (button != null)
-                    {
-                        if (large)
-                            button.setImageResource(R.drawable.ic_button_large);
 
-                        else
-                            button.setImageResource(R.drawable.ic_button);
+                    if(button == null)
+                    {
+                        continue;
                     }
+
+                    if (large)
+                        button.setImageResource(R.drawable.ic_button_large);
+
+                    else
+                        button.setImageResource(R.drawable.ic_button);
                 }
             }
         }
@@ -612,27 +616,29 @@ public class MainActivity extends Activity
                     ImageButton button =
                         findViewById(buttons[i][k]);
 
-                    if (button != null)
+                    if(button == null)
                     {
-                        if (large)
-                        {
-                            if (!hilites[key][i][j])
-                                button.
-                                setImageResource(R.drawable.ic_button_large);
+                        continue;
+                    }
 
-                            else
-                                button.
-                                setImageResource(R.drawable.ic_button_black_large);
-                        }
+                    if (large)
+                    {
+                        if (!hilites[key][i][j])
+                            button.
+                            setImageResource(R.drawable.ic_button_large);
+
                         else
-                        {
-                            if (!hilites[key][i][j])
-                                button.setImageResource(R.drawable.ic_button);
+                            button.
+                            setImageResource(R.drawable.ic_button_black_large);
+                    }
+                    else
+                    {
+                        if (!hilites[key][i][j])
+                            button.setImageResource(R.drawable.ic_button);
 
-                            else
-                                button.
-                                setImageResource(R.drawable.ic_button_black);
-                        }
+                        else
+                            button.
+                            setImageResource(R.drawable.ic_button_black);
                     }
                 }
             }
@@ -642,172 +648,184 @@ public class MainActivity extends Activity
     // On bellows down
     private boolean onBellowsDown(View v, MotionEvent event)
     {
-        if (!bellows)
+        if (bellows == true)
         {
-            bellows = true;
+            return false;
+        }
 
-            // Change all notes
-            for (int i = 0; i < buttons.length; i++)
+        bellows = true;
+
+        // Change all notes
+        for (int i = 0; i < buttons.length; i++)
+        {
+            for (int j = 0; j < buttons[i].length; j++)
             {
-                for (int j = 0; j < buttons[i].length; j++)
+                if (buttonStates[i][j] == false)
                 {
-                    if (buttonStates[i][j])
-                    {
-                        int k = 0;
-
-                        switch (i)
-                        {
-                        case 0:
-                            k = (reverse) ? buttons[i].length - j - 2 : j;
-                            break;
-
-                        case 1:
-                            k = (reverse) ? buttons[i].length - j - 1 : j;
-                            break;
-
-                        case 2:
-                            k = (reverse) ? buttons[i].length - j - 1 : j + 1;
-                            break;
-                        }
-
-                        int note = notes[type][k][!bellows ? 1 : 0] +
-                                   keyvals[key][i];
-
-                        // Stop note
-                        writeNote(noteOff + i, note, volume);
-
-                        note = notes[type][k][bellows ? 1 : 0] +
-                               keyvals[key][i];
-
-                        // Play note
-                        writeNote(noteOn + i, note, volume);
-                    }
+                    continue;
                 }
-            }
 
-            for (int i = 0; i < basses.length; i++)
-            {
-                for (int j = 0; j < basses[i].length; j++)
+                int k = 0;
+
+                switch (i)
                 {
-                    if (bassStates[i][j])
-                    {
-                        int k = 0;
+                case 0:
+                    k = (reverse) ? buttons[i].length - j - 2 : j;
+                    break;
 
-                        switch (i)
-                        {
-                        case 0:
-                            k = (reverse) ? basses[0].length - j - 1 : j;
-                            break;
+                case 1:
+                    k = (reverse) ? buttons[i].length - j - 1 : j;
+                    break;
 
-                        case 1:
-                            k = (reverse) ? (basses[0].length * 2) - j - 1 :
-                                basses[0].length + j;
-                            break;
-                        }
-
-                        // Play chord
-                        int note = chords[key][k][!bellows ? 1 : 0][0];
-                        writeNote(noteOff + 3, note, volume);
-
-                        note = chords[key][k][!bellows ? 1 : 0][1];
-                        writeNote(noteOff + 3, note, volume);
-
-                        note = chords[key][k][bellows ? 1 : 0][0];
-                        writeNote(noteOn + 3, note, volume);
-
-                        note = chords[key][k][bellows ? 1 : 0][1];
-                        writeNote(noteOn + 3, note, volume);
-                    }
+                case 2:
+                    k = (reverse) ? buttons[i].length - j - 1 : j + 1;
+                    break;
                 }
+
+                int note = notes[type][k][!bellows ? 1 : 0] +
+                           keyvals[key][i];
+
+                // Stop note
+                writeNote(noteOff + i, note, volume);
+
+                note = notes[type][k][bellows ? 1 : 0] +
+                       keyvals[key][i];
+
+                // Play note
+                writeNote(noteOn + i, note, volume);
             }
         }
 
-        return false;
+        for (int i = 0; i < basses.length; i++)
+        {
+            for (int j = 0; j < basses[i].length; j++)
+            {
+                if (bassStates[i][j] == false)
+                {
+                    continue;
+                }
+
+                int k = 0;
+
+                switch (i)
+                {
+                case 0:
+                    k = (reverse) ? basses[0].length - j - 1 : j;
+                    break;
+
+                case 1:
+                    k = (reverse) ? (basses[0].length * 2) - j - 1 :
+                        basses[0].length + j;
+                    break;
+                }
+
+                // Play chord
+                int note = chords[key][k][!bellows ? 1 : 0][0];
+                writeNote(noteOff + 3, note, volume);
+
+                note = chords[key][k][!bellows ? 1 : 0][1];
+                writeNote(noteOff + 3, note, volume);
+
+                note = chords[key][k][bellows ? 1 : 0][0];
+                writeNote(noteOn + 3, note, volume);
+
+                note = chords[key][k][bellows ? 1 : 0][1];
+                writeNote(noteOn + 3, note, volume);
+            }
+        }
+
+        return true;
     }
 
     private boolean onBellowsUp(View v, MotionEvent event)
     {
-        if (bellows)
+        if (bellows == false)
         {
-            bellows = false;
+            return false;
+        }
 
-            // Change all notes
-            for (int i = 0; i < buttons.length; i++)
+        bellows = false;
+
+        // Change all notes
+        for (int i = 0; i < buttons.length; i++)
+        {
+            for (int j = 0; j < buttons[i].length; j++)
             {
-                for (int j = 0; j < buttons[i].length; j++)
+                if (buttonStates[i][j] == false)
                 {
-                    if (buttonStates[i][j])
-                    {
-                        int k = 0;
-
-                        switch (i)
-                        {
-                        case 0:
-                            k = (reverse) ? buttons[i].length - j - 2 : j;
-                            break;
-
-                        case 1:
-                            k = (reverse) ? buttons[i].length - j - 1 : j;
-                            break;
-
-                        case 2:
-                            k = (reverse) ? buttons[i].length - j - 1 : j + 1;
-                            break;
-                        }
-
-                        int note = notes[type][k][!bellows ? 1 : 0] +
-                                   keyvals[key][i];
-
-                        // Stop note
-                        writeNote(noteOff + i, note, volume);
-
-                        note = notes[type][k][bellows ? 1 : 0] +
-                               keyvals[key][i];
-
-                        // Play note
-                        writeNote(noteOn + i, note, volume);
-                    }
+                    continue;
                 }
-            }
 
-            for (int i = 0; i < basses.length; i++)
-            {
-                for (int j = 0; j < basses[i].length; j++)
+                int k = 0;
+
+                switch (i)
                 {
-                    if (bassStates[i][j])
-                    {
-                        int k = 0;
+                case 0:
+                    k = (reverse) ? buttons[i].length - j - 2 : j;
+                    break;
 
-                        switch (i)
-                        {
-                        case 0:
-                            k = (reverse) ? basses[0].length - j - 1 : j;
-                            break;
+                case 1:
+                    k = (reverse) ? buttons[i].length - j - 1 : j;
+                    break;
 
-                        case 1:
-                            k = (reverse) ? (basses[0].length * 2) - j - 1 :
-                                basses[0].length + j;
-                            break;
-                        }
-
-                        // Play chord
-                        int note = chords[key][k][!bellows ? 1 : 0][0];
-                        writeNote(noteOff + 3, note, volume);
-
-                        note = chords[key][k][!bellows ? 1 : 0][1];
-                        writeNote(noteOff + 3, note, volume);
-
-                        note = chords[key][k][bellows ? 1 : 0][0];
-                        writeNote(noteOn + 3, note, volume);
-
-                        note = chords[key][k][bellows ? 1 : 0][1];
-                        writeNote(noteOn + 3, note, volume);
-                    }
+                case 2:
+                    k = (reverse) ? buttons[i].length - j - 1 : j + 1;
+                    break;
                 }
+
+                int note = notes[type][k][!bellows ? 1 : 0] +
+                           keyvals[key][i];
+
+                // Stop note
+                writeNote(noteOff + i, note, volume);
+
+                note = notes[type][k][bellows ? 1 : 0] +
+                       keyvals[key][i];
+
+                // Play note
+                writeNote(noteOn + i, note, volume);
             }
         }
 
-        return false;
+        for (int i = 0; i < basses.length; i++)
+        {
+            for (int j = 0; j < basses[i].length; j++)
+            {
+                if (bassStates[i][j] == false)
+                {
+                    continue;
+                }
+
+                int k = 0;
+
+                switch (i)
+                {
+                case 0:
+                    k = (reverse) ? basses[0].length - j - 1 : j;
+                    break;
+
+                case 1:
+                    k = (reverse) ? (basses[0].length * 2) - j - 1 :
+                        basses[0].length + j;
+                    break;
+                }
+
+                // Play chord
+                int note = chords[key][k][!bellows ? 1 : 0][0];
+                writeNote(noteOff + 3, note, volume);
+
+                note = chords[key][k][!bellows ? 1 : 0][1];
+                writeNote(noteOff + 3, note, volume);
+
+                note = chords[key][k][bellows ? 1 : 0][0];
+                writeNote(noteOn + 3, note, volume);
+
+                note = chords[key][k][bellows ? 1 : 0][1];
+                writeNote(noteOn + 3, note, volume);
+            }
+        }
+
+        return true;
     }
 
     private boolean onButtonDown(View v, MotionEvent event)
@@ -819,32 +837,39 @@ public class MainActivity extends Activity
         {
             for (int j = 0; j < buttons[i].length; j++)
             {
-                if (id == buttons[i][j] && !buttonStates[i][j])
+                if (id != buttons[i][j])
                 {
-                    buttonStates[i][j] = true;
-
-                    // Play note
-                    int k = 0;
-
-                    switch (i)
-                    {
-                    case 0:
-                        k = (reverse) ? buttons[i].length - j - 1 : j;
-                        break;
-
-                    case 1:
-                        k = (reverse) ? buttons[i].length - j - 1 : j;
-                        break;
-
-                    case 2:
-                        k = (reverse) ? buttons[i].length - j : j + 1;
-                        break;
-                    }
-
-                    int note = notes[type][k][bellows ? 1 : 0] + keyvals[key][i];
-                    writeNote(noteOn + i, note, volume);
-                    return false;
+                    continue;
                 }
+
+                if (buttonStates[i][j] == true)
+                {
+                    continue;
+                }
+
+                buttonStates[i][j] = true;
+
+                // Play note
+                int k = 0;
+
+                switch (i)
+                {
+                case 0:
+                    k = (reverse) ? buttons[i].length - j - 1 : j;
+                    break;
+
+                case 1:
+                    k = (reverse) ? buttons[i].length - j - 1 : j;
+                    break;
+
+                case 2:
+                    k = (reverse) ? buttons[i].length - j : j + 1;
+                    break;
+                }
+
+                int note = notes[type][k][bellows ? 1 : 0] + keyvals[key][i];
+                writeNote(noteOn + i, note, volume);
+                return false;
             }
         }
 
@@ -853,33 +878,40 @@ public class MainActivity extends Activity
         {
             for (int j = 0; j < basses[i].length; j++)
             {
-                if (id == basses[i][j] && !bassStates[i][j])
+                if (id != basses[i][j])
                 {
-                    int k = 0;
-
-                    bassStates[i][j] = true;
-
-                    switch (i)
-                    {
-                    case 0:
-                        k = (reverse) ? basses[0].length - j - 1 : j;
-                        break;
-
-                    case 1:
-                        k = (reverse) ? (basses[0].length * 2) - j - 1 :
-                            basses[0].length + j;
-                        break;
-                    }
-
-                    // Play chord
-                    int note = chords[key][k][bellows ? 1 : 0][0];
-                    writeNote(noteOn + 3, note, volume);
-
-                    note = chords[key][k][bellows ? 1 : 0][1];
-                    writeNote(noteOn + 3, note, volume);
-
-                    return false;
+                    continue;
                 }
+
+                if (bassStates[i][j] == true)
+                {
+                    continue;
+                }
+
+                int k = 0;
+
+                bassStates[i][j] = true;
+
+                switch (i)
+                {
+                case 0:
+                    k = (reverse) ? basses[0].length - j - 1 : j;
+                    break;
+
+                case 1:
+                    k = (reverse) ? (basses[0].length * 2) - j - 1 :
+                        basses[0].length + j;
+                    break;
+                }
+
+                // Play chord
+                int note = chords[key][k][bellows ? 1 : 0][0];
+                writeNote(noteOn + 3, note, volume);
+
+                note = chords[key][k][bellows ? 1 : 0][1];
+                writeNote(noteOn + 3, note, volume);
+
+                return false;
             }
         }
 
@@ -894,33 +926,40 @@ public class MainActivity extends Activity
         {
             for (int j = 0; j < buttons[i].length; j++)
             {
-                if (id == buttons[i][j] && buttonStates[i][j])
+                if (id != buttons[i][j])
                 {
-                    buttonStates[i][j] = false;
-
-                    // Stop note
-                    int k = 0;
-
-                    switch (i)
-                    {
-                    case 0:
-                        k = (reverse) ? buttons[i].length - j - 1 : j;
-                        break;
-
-                    case 1:
-                        k = (reverse) ? buttons[i].length - j - 1 : j;
-                        break;
-
-                    case 2:
-                        k = (reverse) ? buttons[i].length - j : j + 1;
-                        break;
-                    }
-
-                    int note = notes[type][k][bellows ? 1 : 0] + keyvals[key][i];
-                    writeNote(noteOff + i, note, 0);
-
-                    return false;
+                    continue;
                 }
+
+                if (buttonStates[i][j] == false)
+                {
+                    continue;
+                }
+
+                buttonStates[i][j] = false;
+
+                // Stop note
+                int k = 0;
+
+                switch (i)
+                {
+                case 0:
+                    k = (reverse) ? buttons[i].length - j - 1 : j;
+                    break;
+
+                case 1:
+                    k = (reverse) ? buttons[i].length - j - 1 : j;
+                    break;
+
+                case 2:
+                    k = (reverse) ? buttons[i].length - j : j + 1;
+                    break;
+                }
+
+                int note = notes[type][k][bellows ? 1 : 0] + keyvals[key][i];
+                writeNote(noteOff + i, note, 0);
+
+                return false;
             }
         }
 
@@ -929,33 +968,40 @@ public class MainActivity extends Activity
         {
             for (int j = 0; j < basses[i].length; j++)
             {
-                if (id == basses[i][j] && bassStates[i][j])
+                if(id != basses[i][j])
                 {
-                    int k = 0;
-
-                    bassStates[i][j] = false;
-
-                    switch (i)
-                    {
-                    case 0:
-                        k = (reverse) ? basses[0].length - j - 1 : j;
-                        break;
-
-                    case 1:
-                        k = (reverse) ? (basses[0].length * 2) - j - 1 :
-                            basses[0].length + j;
-                        break;
-                    }
-
-                    // Stop chord
-                    int note = chords[key][k][bellows ? 1 : 0][0];
-                    writeNote(noteOff + 3, note, volume);
-
-                    note = chords[key][k][bellows ? 1 : 0][1];
-                    writeNote(noteOff + 3, note, volume);
-
-                    return false;
+                    continue;
                 }
+
+                if(bassStates[i][j] == false)
+                {
+                    continue;
+                }
+
+                int k = 0;
+
+                bassStates[i][j] = false;
+
+                switch (i)
+                {
+                case 0:
+                    k = (reverse) ? basses[0].length - j - 1 : j;
+                    break;
+
+                case 1:
+                    k = (reverse) ? (basses[0].length * 2) - j - 1 :
+                        basses[0].length + j;
+                    break;
+                }
+
+                // Stop chord
+                int note = chords[key][k][bellows ? 1 : 0][0];
+                writeNote(noteOff + 3, note, volume);
+
+                note = chords[key][k][bellows ? 1 : 0][1];
+                writeNote(noteOff + 3, note, volume);
+
+                return false;
             }
         }
 
