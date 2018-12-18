@@ -553,7 +553,7 @@ public class MainActivity extends Activity
             resources.getStringArray(R.array.pref_layout_entries);
         String format = resources.getString(R.string.format);
         String status = String.format(Locale.getDefault(), format,
-                                      keys[key], layouts[layout]);
+                                      keys[key], layouts[layout]);
         if (keyView != null)
             keyView.setText(status);
 
@@ -583,12 +583,12 @@ public class MainActivity extends Activity
         // Diatonic, set all buttons normal
         if (type == DIATONIC)
         {
-            for (int[] button1 : buttons)
+            for (int[] row : buttons)
             {
-                for (int aButton1 : button1)
+                for (int buttonId : row)
                 {
                     ImageButton button =
-                        findViewById(aButton1);
+                        findViewById(buttonId);
 
                     if(button == null)
                     {
