@@ -109,13 +109,26 @@ public class MainActivity extends Activity
     //	   { 3, -2,  5,	 0, -5,	 2, -3};
 
     // Types
-    private static final int DIATONIC = 0;
-    private static final int CHROMATIC = 1;
+    //private static final int DIATONIC = 0;
+    //private static final int CHROMATIC = 1;
+    private enum KyeType {
+        DIATONIC(0), CHROMATIC(1);
 
-    private static final int types[] =
+        private int value;
+
+        private KyeType(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return value;
+        }
+    }
+
+    private static final KyeType types[] =
     {
-        DIATONIC, DIATONIC, DIATONIC, DIATONIC,
-        DIATONIC, CHROMATIC, CHROMATIC
+        KyeType.DIATONIC, KyeType.DIATONIC, KyeType.DIATONIC, KyeType.DIATONIC,
+        KyeType.DIATONIC, KyeType.CHROMATIC, KyeType.CHROMATIC
     };
 
     // Midi notes for C Diatonic, G Chromatic
@@ -307,7 +320,7 @@ public class MainActivity extends Activity
     private int volume;
     private int layout;
     private int fascia;
-    private int type;
+    private KyeType type;
     private int key;
 
     // MidiDriver
@@ -581,7 +594,7 @@ public class MainActivity extends Activity
             large = true;
 
         // Diatonic, set all buttons normal
-        if (type == DIATONIC)
+        if (type == KyeType.DIATONIC)
         {
             for (int[] button1 : buttons)
             {
@@ -682,13 +695,13 @@ public class MainActivity extends Activity
                     break;
                 }
 
-                int note = notes[type][k][!bellows ? 1 : 0] +
+                int note = notes[type.value()][k][!bellows ? 1 : 0] +
                            keyvals[key][i];
 
                 // Stop note
                 writeNote(noteOff + i, note, volume);
 
-                note = notes[type][k][bellows ? 1 : 0] +
+                note = notes[type.value()][k][bellows ? 1 : 0] +
                        keyvals[key][i];
 
                 // Play note
@@ -773,13 +786,13 @@ public class MainActivity extends Activity
                     break;
                 }
 
-                int note = notes[type][k][!bellows ? 1 : 0] +
+                int note = notes[type.value()][k][!bellows ? 1 : 0] +
                            keyvals[key][i];
 
                 // Stop note
                 writeNote(noteOff + i, note, volume);
 
-                note = notes[type][k][bellows ? 1 : 0] +
+                note = notes[type.value()][k][bellows ? 1 : 0] +
                        keyvals[key][i];
 
                 // Play note
@@ -867,7 +880,7 @@ public class MainActivity extends Activity
                     break;
                 }
 
-                int note = notes[type][k][bellows ? 1 : 0] + keyvals[key][i];
+                int note = notes[type.value()][k][bellows ? 1 : 0] + keyvals[key][i];
                 writeNote(noteOn + i, note, volume);
                 return false;
             }
@@ -956,7 +969,7 @@ public class MainActivity extends Activity
                     break;
                 }
 
-                int note = notes[type][k][bellows ? 1 : 0] + keyvals[key][i];
+                int note = notes[type.value()][k][bellows ? 1 : 0] + keyvals[key][i];
                 writeNote(noteOff + i, note, 0);
 
                 return false;
