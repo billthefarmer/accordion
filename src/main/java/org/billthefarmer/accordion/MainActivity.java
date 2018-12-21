@@ -111,24 +111,28 @@ public class MainActivity extends Activity
     // Types
     //private static final int DIATONIC = 0;
     //private static final int CHROMATIC = 1;
-    private enum KyeType {
+
+    private enum KeyType
+    {
         DIATONIC(0), CHROMATIC(1);
 
         private int value;
 
-        private KyeType(int value) {
+        private KeyType(int value)
+        {
             this.value = value;
         }
 
-        public int value() {
+        public int value()
+        {
             return value;
         }
     }
 
-    private static final KyeType types[] =
+    private static final KeyType types[] =
     {
-        KyeType.DIATONIC, KyeType.DIATONIC, KyeType.DIATONIC, KyeType.DIATONIC,
-        KyeType.DIATONIC, KyeType.CHROMATIC, KyeType.CHROMATIC
+        KeyType.DIATONIC, KeyType.DIATONIC, KeyType.DIATONIC, KeyType.DIATONIC,
+        KeyType.DIATONIC, KeyType.CHROMATIC, KeyType.CHROMATIC
     };
 
     // Midi notes for C Diatonic, G Chromatic
@@ -320,7 +324,7 @@ public class MainActivity extends Activity
     private int volume;
     private int layout;
     private int fascia;
-    private KyeType type;
+    private KeyType type;
     private int key;
 
     // MidiDriver
@@ -594,7 +598,7 @@ public class MainActivity extends Activity
             large = true;
 
         // Diatonic, set all buttons normal
-        if (type == KyeType.DIATONIC)
+        if (type == KeyType.DIATONIC)
         {
             for (int[] button1 : buttons)
             {
