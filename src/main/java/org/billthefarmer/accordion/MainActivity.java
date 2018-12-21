@@ -666,9 +666,7 @@ public class MainActivity extends Activity
     private boolean onBellowsDown(View v, MotionEvent event)
     {
         if (bellows == true)
-        {
             return false;
-        }
 
         bellows = true;
 
@@ -678,9 +676,7 @@ public class MainActivity extends Activity
             for (int j = 0; j < buttons[i].length; j++)
             {
                 if (buttonStates[i][j] == false)
-                {
                     continue;
-                }
 
                 int k = 0;
 
@@ -718,9 +714,7 @@ public class MainActivity extends Activity
             for (int j = 0; j < basses[i].length; j++)
             {
                 if (bassStates[i][j] == false)
-                {
                     continue;
-                }
 
                 int k = 0;
 
@@ -757,9 +751,7 @@ public class MainActivity extends Activity
     private boolean onBellowsUp(View v, MotionEvent event)
     {
         if (bellows == false)
-        {
             return false;
-        }
 
         bellows = false;
 
@@ -769,9 +761,7 @@ public class MainActivity extends Activity
             for (int j = 0; j < buttons[i].length; j++)
             {
                 if (buttonStates[i][j] == false)
-                {
                     continue;
-                }
 
                 int k = 0;
 
@@ -809,9 +799,7 @@ public class MainActivity extends Activity
             for (int j = 0; j < basses[i].length; j++)
             {
                 if (bassStates[i][j] == false)
-                {
                     continue;
-                }
 
                 int k = 0;
 
@@ -855,14 +843,10 @@ public class MainActivity extends Activity
             for (int j = 0; j < buttons[i].length; j++)
             {
                 if (id != buttons[i][j])
-                {
                     continue;
-                }
 
                 if (buttonStates[i][j] == true)
-                {
                     continue;
-                }
 
                 buttonStates[i][j] = true;
 
@@ -896,14 +880,10 @@ public class MainActivity extends Activity
             for (int j = 0; j < basses[i].length; j++)
             {
                 if (id != basses[i][j])
-                {
                     continue;
-                }
 
                 if (bassStates[i][j] == true)
-                {
                     continue;
-                }
 
                 int k = 0;
 
@@ -944,14 +924,10 @@ public class MainActivity extends Activity
             for (int j = 0; j < buttons[i].length; j++)
             {
                 if (id != buttons[i][j])
-                {
                     continue;
-                }
 
                 if (buttonStates[i][j] == false)
-                {
                     continue;
-                }
 
                 buttonStates[i][j] = false;
 
@@ -986,14 +962,10 @@ public class MainActivity extends Activity
             for (int j = 0; j < basses[i].length; j++)
             {
                 if(id != basses[i][j])
-                {
                     continue;
-                }
 
                 if(bassStates[i][j] == false)
-                {
                     continue;
-                }
 
                 int k = 0;
 
