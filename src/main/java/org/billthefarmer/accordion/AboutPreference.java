@@ -25,6 +25,7 @@ package org.billthefarmer.accordion;
 
 import android.content.Context;
 import android.preference.DialogPreference;
+import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.view.View;
@@ -54,9 +55,13 @@ public class AboutPreference extends DialogPreference
         // Set version in text view
         if (version != null)
         {
-            String v = (String) version.getText();
-            String s = String.format(v, BuildConfig.VERSION_NAME);
-            version.setText(s);
+            SpannableStringBuilder builder =
+                new SpannableStringBuilder(version.getText());
+            int st = builder.toString().indexOf("%s");
+            int en = builder.length();
+            builder.replace(st, en, BuildConfig.VERSION_NAME);
+            version.setText(builder);
+            version.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         // Get built text view
@@ -65,7 +70,7 @@ public class AboutPreference extends DialogPreference
         // Set built date in text view
         if (built != null)
         {
-            String d = (String) built.getText();
+            String d = built.getText().toString();
             DateFormat dateFormat = DateFormat.getDateTimeInstance();
             String s =
                 String.format(d, dateFormat.format(BuildConfig.BUILT));
@@ -76,12 +81,14 @@ public class AboutPreference extends DialogPreference
         TextView copyright = view.findViewById(R.id.copyright);
 
         // Set movement method
-        copyright.setMovementMethod(LinkMovementMethod.getInstance());
+        if (copyright != null)
+            copyright.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Get licence text view
         TextView licence = view.findViewById(R.id.licence);
 
         // Set movement method
-        licence.setMovementMethod(LinkMovementMethod.getInstance());
+        if (licence != null)
+            licence.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
