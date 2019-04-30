@@ -72,8 +72,7 @@ public class AboutPreference extends DialogPreference
         {
             String d = built.getText().toString();
             DateFormat dateFormat = DateFormat.getDateTimeInstance();
-            String s =
-                String.format(d, dateFormat.format(BuildConfig.BUILT));
+            String s = String.format(d, dateFormat.format(BuildConfig.BUILT));
             built.setText(s);
         }
 
