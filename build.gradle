@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'com.android.tools.build:gradle:3.5.3'
     }
 }
 
@@ -26,14 +26,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         applicationId "org.billthefarmer.accordion"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 115
-        versionName "1.15"
+        versionCode 116
+        versionName "1.16"
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
@@ -51,5 +51,5 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.billthefarmer:mididriver:v1.16'
+    implementation 'com.github.billthefarmer:mididriver:v1.18'
 }
