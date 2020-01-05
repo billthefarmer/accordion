@@ -1000,8 +1000,7 @@ public class MainActivity extends Activity
     // Show toast.
     private void showToast(int key)
     {
-        Resources resources = getResources();
-        String text = resources.getString(key);
+        String text = getString(key);
 
         showToast(text);
     }
