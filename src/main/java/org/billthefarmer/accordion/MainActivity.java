@@ -123,10 +123,9 @@ public class MainActivity extends Activity
             this.value = value;
         }
 
-        public int value()
-        {
-            return value;
-        }
+        public static int value() {
+			return value;
+		}
     }
 
     private static final KeyType types[] =
