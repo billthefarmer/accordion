@@ -362,7 +362,7 @@ public class MainActivity extends Activity
             view.setBackgroundResource(fascias[fascia]);
 
         // Create midi
-        midi = new MidiDriver();
+        midi = MidiDriver.getInstance();
 
         // Set listeners
         setListeners();
