@@ -1,4 +1,5 @@
-# ![Logo](src/main/res/drawable-xhdpi/ic_launcher.png) Accordion [![.github/workflows/main.yml](https://github.com/billthefarmer/accordion/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/billthefarmer/accordion/actions) [![Release](https://img.shields.io/github/release/billthefarmer/accordion.svg?logo=github)](https://github.com/billthefarmer/accordion/releases) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.accordion/)
+# ![Logo](src/main/res/drawable-xhdpi/ic_launcher.png) Accordion [![.github/workflows/main.yml](https://github.com/billthefarmer/accordion/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/billthefarmer/accordion/actions) [![Release](https://img.shields.io/github/release/billthefarmer/accordion.svg?logo=github)](https://github.com/billthefarmer/accordion/releases)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/org.billthefarmer.accordion/)
 
 Android accordion emulator for tablets. The app is available on
 [F-Droid](https://f-droid.org/packages/org.billthefarmer.accordion/)
