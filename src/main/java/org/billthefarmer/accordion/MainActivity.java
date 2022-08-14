@@ -31,6 +31,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -52,6 +53,8 @@ public class MainActivity extends Activity
     implements View.OnTouchListener, CompoundButton.OnCheckedChangeListener,
     MidiDriver.OnMidiStartListener
 {
+    public final static String TAG = "Accordion";
+
     // Button ids
     private static final int buttons[][] =
     {
@@ -98,11 +101,11 @@ public class MainActivity extends Activity
     private static final int kbkeys[][] =
     {
         {
-            KeyEvent.KEYCODE_Z, KeyEvent.KEYCODE_X,
-            KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_V,
-            KeyEvent.KEYCODE_B, KeyEvent.KEYCODE_N,
-            KeyEvent.KEYCODE_M, KeyEvent.KEYCODE_COMMA,
-            KeyEvent.KEYCODE_PERIOD, KeyEvent.KEYCODE_SLASH
+            KeyEvent.KEYCODE_W, KeyEvent.KEYCODE_E,
+            KeyEvent.KEYCODE_R, KeyEvent.KEYCODE_T,
+            KeyEvent.KEYCODE_Y, KeyEvent.KEYCODE_U,
+            KeyEvent.KEYCODE_I, KeyEvent.KEYCODE_O,
+            KeyEvent.KEYCODE_P, KeyEvent.KEYCODE_LEFT_BRACKET
         },
         {
             KeyEvent.KEYCODE_A, KeyEvent.KEYCODE_S,
@@ -113,11 +116,11 @@ public class MainActivity extends Activity
             KeyEvent.KEYCODE_APOSTROPHE
         },
         {
-            KeyEvent.KEYCODE_W, KeyEvent.KEYCODE_E,
-            KeyEvent.KEYCODE_R, KeyEvent.KEYCODE_T,
-            KeyEvent.KEYCODE_Y, KeyEvent.KEYCODE_U,
-            KeyEvent.KEYCODE_I, KeyEvent.KEYCODE_O,
-            KeyEvent.KEYCODE_P, KeyEvent.KEYCODE_LEFT_BRACKET
+            KeyEvent.KEYCODE_Z, KeyEvent.KEYCODE_X,
+            KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_V,
+            KeyEvent.KEYCODE_B, KeyEvent.KEYCODE_N,
+            KeyEvent.KEYCODE_M, KeyEvent.KEYCODE_COMMA,
+            KeyEvent.KEYCODE_PERIOD, KeyEvent.KEYCODE_SLASH
         }
     };
 
@@ -557,12 +560,18 @@ public class MainActivity extends Activity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, "KeyCode " + keyCode);
+
         switch (keyCode)
         {
         case KeyEvent.KEYCODE_SPACE:
         case KeyEvent.KEYCODE_SHIFT_LEFT:
         case KeyEvent.KEYCODE_SHIFT_RIGHT:
             return onBellowsDown();
+
+        case KeyEvent.KEYCODE_BACK:
+            finish();
         }
 
         for (int i = 0; i < kbkeys.length; i++)
@@ -684,14 +693,16 @@ public class MainActivity extends Activity
 
         // Set status text
         Resources resources = getResources();
-        String keys[] = resources.getStringArray(R.array.pref_key_entries);
+        String keys[] =
+            resources.getStringArray(R.array.pref_key_entries);
         String layouts[] =
             resources.getStringArray(R.array.pref_layout_entries);
-        String format = resources.getString(R.string.format);
-        String status = String.format(Locale.getDefault(), format,
-                                      keys[key], layouts[layout]);
         if (keyView != null)
-            keyView.setText(status);
+            keyView.setText(layouts[layout]);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null)
+            actionBar.setSubtitle(keys[key]);
 
         // Set reverse
         reverse = preferences.getBoolean(PREF_REVERSE, false);
