@@ -568,6 +568,8 @@ public class MainActivity extends Activity
         case KeyEvent.KEYCODE_SPACE:
         case KeyEvent.KEYCODE_SHIFT_LEFT:
         case KeyEvent.KEYCODE_SHIFT_RIGHT:
+        case KeyEvent.KEYCODE_CTRL_LEFT:
+        case KeyEvent.KEYCODE_CTRL_RIGHT:
             return onBellowsDown();
 
         case KeyEvent.KEYCODE_BACK:
@@ -601,6 +603,8 @@ public class MainActivity extends Activity
         case KeyEvent.KEYCODE_SPACE:
         case KeyEvent.KEYCODE_SHIFT_LEFT:
         case KeyEvent.KEYCODE_SHIFT_RIGHT:
+        case KeyEvent.KEYCODE_CTRL_LEFT:
+        case KeyEvent.KEYCODE_CTRL_RIGHT:
             return onBellowsUp();
         }
 
@@ -737,7 +741,7 @@ public class MainActivity extends Activity
                     ImageButton button =
                         findViewById(aButton1);
 
-                    if(button == null)
+                    if (button == null)
                     {
                         continue;
                     }
@@ -763,7 +767,7 @@ public class MainActivity extends Activity
                     ImageButton button =
                         findViewById(buttons[i][k]);
 
-                    if(button == null)
+                    if (button == null)
                     {
                         continue;
                     }
@@ -1087,10 +1091,10 @@ public class MainActivity extends Activity
         {
             for (int j = 0; j < basses[i].length; j++)
             {
-                if(id != basses[i][j])
+                if (id != basses[i][j])
                     continue;
 
-                if(bassStates[i][j] == false)
+                if (bassStates[i][j] == false)
                     continue;
 
                 int k = 0;
