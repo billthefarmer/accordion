@@ -128,14 +128,14 @@ public class MainActivity extends Activity
     private static final int nmkeys[][] =
     {
         {
-            KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_3,
-            KeyEvent.KEYCODE_5, KeyEvent.KEYCODE_7,
-            KeyEvent.KEYCODE_9, KeyEvent.KEYCODE_MINUS
+            KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_2,
+            KeyEvent.KEYCODE_3, KeyEvent.KEYCODE_4,
+            KeyEvent.KEYCODE_5, KeyEvent.KEYCODE_6
         },
         {
-            KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_4,
-            KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_8,
-            KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_EQUALS
+            KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_8,
+            KeyEvent.KEYCODE_9, KeyEvent.KEYCODE_0,
+            KeyEvent.KEYCODE_MINUS, KeyEvent.KEYCODE_EQUALS
         }
     };
 
@@ -143,36 +143,37 @@ public class MainActivity extends Activity
     private static final int fnkeys[][] =
     {
         {
-            KeyEvent.KEYCODE_F1, KeyEvent.KEYCODE_F3,
-            KeyEvent.KEYCODE_F5, KeyEvent.KEYCODE_F7,
-            KeyEvent.KEYCODE_F9, KeyEvent.KEYCODE_F11
+            KeyEvent.KEYCODE_F1, KeyEvent.KEYCODE_F2,
+            KeyEvent.KEYCODE_F3, KeyEvent.KEYCODE_F4,
+            KeyEvent.KEYCODE_F5, KeyEvent.KEYCODE_F6
         },
         {
-            KeyEvent.KEYCODE_F2, KeyEvent.KEYCODE_F4,
-            KeyEvent.KEYCODE_F6, KeyEvent.KEYCODE_F8,
-            KeyEvent.KEYCODE_F10, KeyEvent.KEYCODE_F12
+            KeyEvent.KEYCODE_F7, KeyEvent.KEYCODE_F8,
+            KeyEvent.KEYCODE_F9, KeyEvent.KEYCODE_F10,
+            KeyEvent.KEYCODE_F11, KeyEvent.KEYCODE_F12
         }
     };
 
     // List of key offset values
     private static final int keyvals[][] =
     {
-        {3, -2, -7},  // F/Bb/Eb
+        {3, -2, -7}, // F/Bb/Eb
         {5, 0, -5},  // G/C/F
         {7, 2, -3},  // A/D/G
-        {7, 2, 1},  // C#/D/G
+        {7, 2, 1},   // C#/D/G
         {1, 0, -1},  // B/C/C#
         {1, 0, -1},  // C System
-        {2, 0, -2}
-    }; // B System
+        {2, 0, -2}   // B System
+    };
 
     //	    Eb	Bb   F	 C   G	 D   A
     //	   { 3, -2,  5,	 0, -5,	 2, -3};
 
     // Types
-    //private static final int DIATONIC = 0;
-    //private static final int CHROMATIC = 1;
+    // private static final int DIATONIC = 0;
+    // private static final int CHROMATIC = 1;
 
+    // Key type
     private enum KeyType
     {
         DIATONIC(0), CHROMATIC(1);
@@ -190,6 +191,7 @@ public class MainActivity extends Activity
         }
     }
 
+    // Key types
     private static final KeyType types[] =
     {
         KeyType.DIATONIC, KeyType.DIATONIC, KeyType.DIATONIC, KeyType.DIATONIC,
@@ -1016,6 +1018,9 @@ public class MainActivity extends Activity
 
                 if (bassStates[i][j] == true)
                     continue;
+
+                if (BuildConfig.DEBUG)
+                    Log.d(TAG, "i, j " + i + ", " + j);
 
                 int k = 0;
 
