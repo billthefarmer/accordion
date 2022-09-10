@@ -29,6 +29,6 @@ An external USB or Bluetooth keyboard may be used. The keys are...
  ASDFGHJKL;'
   ZXCVBNM,./
 ```
-The spacebar, lft and right shift keys and left and right control keys
+The spacebar, left and right shift keys and left and right control keys
 act as the bellows. The function keys and number keys act as the bass
 buttons.

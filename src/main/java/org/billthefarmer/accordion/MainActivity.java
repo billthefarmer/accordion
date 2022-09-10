@@ -29,6 +29,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -1149,6 +1150,10 @@ public class MainActivity extends Activity
         // Make a new one
         toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
+        // Fix for android 13
+        View view = toast.getView();
+        if (view != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+            view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }
 
