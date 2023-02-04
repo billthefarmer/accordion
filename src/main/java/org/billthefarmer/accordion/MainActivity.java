@@ -331,6 +331,8 @@ public class MainActivity extends Activity
     private static final int noteOn = 0x90;
     private static final int change = 0xc0;
 
+    public static final int VERSION_CODE_S_V2 = 32;
+
     // Preferences
     private final static String PREF_INSTRUMENT = "pref_instrument";
     private final static String PREF_REVERSE = "pref_reverse";
@@ -1152,7 +1154,7 @@ public class MainActivity extends Activity
         toast.setGravity(Gravity.CENTER, 0, 0);
         // Fix for android 13
         View view = toast.getView();
-        if (view != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+        if (view != null && Build.VERSION.SDK_INT > VERSION_CODE_S_V2)
             view.setBackgroundResource(R.drawable.toast_frame);
         toast.show();
     }

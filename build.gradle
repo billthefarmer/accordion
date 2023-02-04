@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'com.android.tools.build:gradle:7.4.1'
     }
 }
 
@@ -26,6 +26,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    namespace "org.billthefarmer.accordion"
 
     defaultConfig {
         applicationId "org.billthefarmer.accordion"
