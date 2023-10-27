@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
@@ -40,7 +40,8 @@ android {
 
     lintOptions {
         disable 'IconDipSize', 'IconDensities', 'IconDuplicates', 'NonConstantResourceId',
-	'OldTargetApi', 'LockedOrientationActivity', 'ExpiredTargetSdkVersion'
+	'OldTargetApi', 'LockedOrientationActivity', 'ExpiredTargetSdkVersion',
+	'AndroidGradlePluginVersion'
         // abortOnError false
     }
 
