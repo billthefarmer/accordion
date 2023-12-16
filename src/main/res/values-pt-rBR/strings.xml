@@ -28,6 +28,9 @@
   <string name="pref_fascia">Fascia</string>
   <string name="pref_fascia_summ">%s</string>
 
+  <string name="theme">Tema</string>
+  <string name="pref_theme_summ">%s</string>
+
   <string name="pref_about">Sobre</string>
   <string name="pref_about_summ">Versão do Accordion %s</string>
 
