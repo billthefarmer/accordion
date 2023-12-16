@@ -14,12 +14,46 @@
     -->
   </style>
 
+  <style name="AppDarkBaseTheme" parent="android:Theme.Material">
+    <!--
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
+    -->
+  </style>
+
   <!-- Application theme. -->
   <style name="AppTheme" parent="AppBaseTheme">
     <!--
         All customizations that are NOT specific to a particular
         API-level can go here.
     -->
+
+    <item name="pref_about">@drawable/ic_info_outline_black_24dp</item>
+    <item name="pref_fascia">@drawable/ic_image_black_24dp</item>
+    <item name="pref_instrument">@drawable/ic_volume_up_black_24dp</item>
+    <item name="pref_key">@drawable/ic_music_note_black_24dp</item>
+    <item name="pref_layout">@drawable/ic_dialpad_black_24dp</item>
+    <item name="pref_reverse">@drawable/ic_swap_vert_black_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_black_24dp</item>
+
+  </style>
+
+  <!-- Application theme. -->
+  <style name="AppDarkTheme" parent="AppDarkBaseTheme">
+    <!--
+        All customizations that are NOT specific to a particular
+        API-level can go here.
+    -->
+
+    <item name="pref_about">@drawable/ic_info_outline_white_24dp</item>
+    <item name="pref_fascia">@drawable/ic_image_white_24dp</item>
+    <item name="pref_instrument">@drawable/ic_volume_up_white_24dp</item>
+    <item name="pref_key">@drawable/ic_music_note_white_24dp</item>
+    <item name="pref_layout">@drawable/ic_dialpad_white_24dp</item>
+    <item name="pref_reverse">@drawable/ic_swap_vert_white_24dp</item>
+    <item name="pref_theme">@drawable/ic_brightness_high_white_24dp</item>
+
   </style>
 
 </resources>

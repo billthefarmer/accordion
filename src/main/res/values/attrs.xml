@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="Accordion">
+
+    <attr name="pref_about" format="reference" />
+    <attr name="pref_fascia" format="reference" />
+    <attr name="pref_instrument" format="reference" />
+    <attr name="pref_key" format="reference" />
+    <attr name="pref_layout" format="reference" />
+    <attr name="pref_reverse" format="reference" />
+    <attr name="pref_theme" format="reference" />
+
+  </declare-styleable>
+
+</resources>
