@@ -28,7 +28,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_2"
@@ -41,7 +41,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_3"
@@ -54,7 +54,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_4"
@@ -67,7 +67,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_5"
@@ -80,7 +80,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_6"
@@ -93,7 +93,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_7"
@@ -106,7 +106,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_8"
@@ -120,7 +120,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
   </LinearLayout>
 
@@ -145,7 +145,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_12"
@@ -158,7 +158,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_13"
@@ -171,7 +171,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_14"
@@ -184,7 +184,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_15"
@@ -197,7 +197,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_16"
@@ -210,7 +210,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_17"
@@ -223,7 +223,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_18"
@@ -236,7 +236,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_19"
@@ -250,7 +250,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
   </LinearLayout>
 
@@ -275,7 +275,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_23"
@@ -288,7 +288,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_24"
@@ -301,7 +301,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_25"
@@ -314,7 +314,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_26"
@@ -327,7 +327,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_27"
@@ -340,7 +340,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_28"
@@ -353,7 +353,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/button_29"
@@ -367,7 +367,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
   </LinearLayout>
 
@@ -408,7 +408,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_2"
@@ -421,7 +421,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_5"
@@ -434,7 +434,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_6"
@@ -447,7 +447,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_9"
@@ -460,7 +460,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_10"
@@ -474,7 +474,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
   </LinearLayout>
 
@@ -499,7 +499,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_4"
@@ -512,7 +512,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_7"
@@ -525,7 +525,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_8"
@@ -538,7 +538,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_11"
@@ -551,7 +551,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
     <ImageButton
         android:id="@+id/bass_12"
@@ -565,7 +565,7 @@
         android:maxWidth="56dp"
         android:maxHeight="56dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_button_large" />
+        android:src="@drawable/ic_button" />
 
   </LinearLayout>
 

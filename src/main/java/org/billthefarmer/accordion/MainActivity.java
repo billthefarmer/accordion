@@ -774,34 +774,21 @@ public class MainActivity extends Activity
     private void setButtonHilites()
     {
         View v;
-        boolean large = false;
-
-        // If the first or last button in the middle row isn't there
-        // we must be using large buttons
-        if (((v = findViewById(buttons[1][0])) == null) ||
-                ((v = findViewById(buttons[1][buttons[1].length - 1])) == null))
-            large = true;
 
         // Diatonic, set all buttons normal
         if (type == KeyType.DIATONIC)
         {
-            for (int[] button1 : buttons)
+            for (int[] column : buttons)
             {
-                for (int aButton1 : button1)
+                for (int id : column)
                 {
                     ImageButton button =
-                        findViewById(aButton1);
+                        findViewById(id);
 
                     if (button == null)
-                    {
                         continue;
-                    }
 
-                    if (large)
-                        button.setImageResource(R.drawable.ic_button_large);
-
-                    else
-                        button.setImageResource(R.drawable.ic_button);
+                    button.setImageResource(R.drawable.ic_button);
                 }
             }
         }
@@ -819,29 +806,13 @@ public class MainActivity extends Activity
                         findViewById(buttons[i][k]);
 
                     if (button == null)
-                    {
                         continue;
-                    }
 
-                    if (large)
-                    {
-                        if (!hilites[key][i][j])
-                            button.
-                            setImageResource(R.drawable.ic_button_large);
+                    if (!hilites[key][i][j])
+                        button.setImageResource(R.drawable.ic_button);
 
-                        else
-                            button.
-                            setImageResource(R.drawable.ic_button_black_large);
-                    }
                     else
-                    {
-                        if (!hilites[key][i][j])
-                            button.setImageResource(R.drawable.ic_button);
-
-                        else
-                            button.
-                            setImageResource(R.drawable.ic_button_black);
-                    }
+                        button.setImageResource(R.drawable.ic_button_black);
                 }
             }
         }
