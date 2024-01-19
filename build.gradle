@@ -32,16 +32,16 @@ android {
         applicationId "org.billthefarmer.accordion"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 121
-        versionName "1.21"
+        versionCode 122
+        versionName "1.22"
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
     lintOptions {
-        disable 'NonConstantResourceId',
-	'OldTargetApi', 'LockedOrientationActivity', 'ExpiredTargetSdkVersion',
-	'AndroidGradlePluginVersion', 'ObsoleteSdkInt', 'VectorPath'
+        disable 'NonConstantResourceId', 'OldTargetApi',
+            'LockedOrientationActivity', 'ExpiredTargetSdkVersion',
+	    'AndroidGradlePluginVersion', 'ObsoleteSdkInt', 'VectorPath'
         // abortOnError false
     }
 
