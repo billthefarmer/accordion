@@ -7,13 +7,26 @@
     android:layout_height="match_parent"
     tools:ignore="RtlHardcoded">
 
+  <Button
+      android:id="@+id/dummy"
+      style="?android:attr/borderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentBottom="true"
+      android:layout_marginLeft="6dp"
+      android:layout_marginTop="6dp"
+      android:layout_marginBottom="6dp"
+      android:background="@android:color/transparent" />
+
   <LinearLayout
       android:id="@+id/row_1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
       android:layout_centerVertical="true"
       android:layout_marginLeft="6dp"
+      android:layout_toRightOf="@id/dummy"
       android:orientation="vertical"
       tools:ignore="ContentDescription">
 
@@ -371,7 +384,7 @@
 
   </LinearLayout>
 
-  <ImageButton
+  <Button
       android:id="@+id/bellows"
       style="?android:attr/borderlessButtonStyle"
       android:layout_width="wrap_content"
@@ -382,10 +395,7 @@
       android:layout_marginTop="6dp"
       android:layout_marginRight="6dp"
       android:layout_marginBottom="6dp"
-      android:background="@android:color/transparent"
-      android:minWidth="32dp"
-      android:src="@drawable/colour_button"
-      tools:ignore="ContentDescription" />
+      android:background="@drawable/colour_button" />
 
   <LinearLayout
       android:id="@+id/row_5"
@@ -569,25 +579,24 @@
 
   </LinearLayout>
 
-  <LinearLayout
+  <RelativeLayout
       android:id="@+id/switches"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignBottom="@id/row_2"
       android:layout_marginBottom="6dp"
-      android:layout_toRightOf="@id/row_3"
-      android:layout_toLeftOf="@id/row_4"
+      android:layout_toRightOf="@id/row_2"
+      android:layout_toLeftOf="@id/bellows"
       android:orientation="horizontal"
-      android:gravity="center"
       tools:ignore="ContentDescription">
 
     <Switch
         android:id="@+id/reverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textOff=""
-        android:textOn="" />
+        android:layout_centerHorizontal="true"
+        android:thumb="@drawable/thumb" />
 
-  </LinearLayout>
+  </RelativeLayout>
 
 </RelativeLayout>
